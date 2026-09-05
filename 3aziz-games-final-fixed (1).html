@@ -1,0 +1,3307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ألعاب عزيز - العاب مجانية اون لاين</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pr:#2196F3;--prd:#1976D2;--sc:#FF9800;--ac:#E91E63;--gr:#4CAF50;--bg:#0f172a;--bgw:#1e293b;--td:#f8fafc;--tm:#cbd5e1;--tl:#94a3b8;--bd:#334155}
+body{font-family:'Cairo',Tahoma,sans-serif;background:var(--bg);color:var(--td);line-height:1.6}
+.top-bar{background:linear-gradient(90deg, #1e3a8a, var(--prd));color:#fff;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;font-size:13px;border-bottom:1px solid var(--bd)}
+.header{background:var(--bgw);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--pr);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--pr),var(--ac));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 0 15px rgba(33,150,243,.5)}
+.logo-text{font-size:26px;font-weight:900;color:#fff;letter-spacing:1px}
+.logo-sub{font-size:11px;color:var(--tl)}
+.mc{max-width:1260px;margin:0 auto;padding:20px;display:flex;gap:24px;flex-direction:column}
+.wb{background:linear-gradient(135deg,var(--pr),#1565C0);color:#fff;padding:24px 28px;border-radius:12px;margin-bottom:10px}
+.wb h1{font-size:24px;font-weight:900;margin-bottom:8px}
+.wb p{font-size:15px;opacity:.9}
+.sb-box{background:var(--bgw);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 4px 15px rgba(0,0,0,.2);border:1px solid var(--bd)}
+.st{font-size:18px;font-weight:800;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--bd);color:#fff}
+.gg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.gc{background:#111827;border-radius:10px;overflow:hidden;transition:all .3s;cursor:pointer;border:1px solid var(--bd);display:flex;flex-direction:column;position:relative}
+.gc:hover{transform:translateY(-3px);border-color:var(--pr)}
+.gt{height:110px;position:relative;overflow:hidden;background:#1e293b;display:flex;align-items:center;justify-content:center}
+.gt .local-poster{display:flex;align-items:center;justify-content:center;font-size:42px;background:linear-gradient(135deg, #1e293b, #0f172a);width:100%;height:100%}
+.gt img.real-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.gt .tg{position:absolute;top:5px;right:5px;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:700;color:#fff;z-index:2}
+.tn{background:var(--gr)}
+.th{background:var(--ac)}
+.po{position:absolute;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s}
+.gc:hover .po{opacity:1}
+.pc{width:40px;height:40px;background:var(--pr);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+.gn{padding:10px 8px;font-size:12px;font-weight:700;text-align:center;color:#fff;background:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* شاشة تشغيل الألعاب البرمجية الثابتة */
+.game-player-container {display:none;background:var(--bgw);border-radius:12px;padding:20px;margin-bottom:20px;border:2px solid var(--pr);box-shadow:0 4px 15px rgba(0,0,0,.3);text-align:center}
+.game-controls {display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;border-bottom:1px solid var(--bd);padding-bottom:10px}
+.game-title-active {font-size:18px;font-weight:700;color:#fff}
+.close-btn {background:var(--ac);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:700}
+.game-display-area {width:100%;display:flex;justify-content:center;align-items:center;background:#000;border-radius:8px;padding:20px;min-height:420px}
+
+/* تصاميم الألعاب الداخلية */
+#snakeCanvas {background:#111;border:2px solid #333;display:none}
+#ticTacToeGrid {display:none;grid-template-columns:repeat(3, 1fr);gap:10px;width:300px;height:300px}
+.ttt-cell {background:#2e3b4e;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;color:#fff;cursor:pointer;height:90px;width:90px}
+#flappyCanvas {background:#4EC0CA;border:2px solid #333;display:none;cursor:pointer}
+#breakoutCanvas {background:#111;border:2px solid #333;display:none}
+#dodgeCanvas {background:#1a1a2e;border:2px solid #333;display:none}
+#beatCanvas {background:#3b2a1a;border:2px solid #333;display:none}
+.game-hint{font-size:12px;color:var(--tl);margin-top:10px}
+#chessBoard{display:none;grid-template-columns:repeat(8,1fr);width:400px;height:400px;border:3px solid #5c4423}
+.chess-sq{display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;user-select:none}
+.chess-light{background:#eed9b6}
+.chess-dark{background:#8b6b43}
+.chess-sel{outline:3px solid #2196F3;outline-offset:-3px}
+.chess-move{position:relative}
+.chess-move::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:rgba(33,150,243,.6)}
+#solitaireArea{display:none;width:560px;max-width:100%}
+.sol-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.sol-pile{width:60px;height:84px;border:2px dashed #555;border-radius:6px;position:relative;flex-shrink:0}
+.sol-card{width:60px;height:84px;border-radius:6px;background:#fff;border:1px solid #333;position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:4px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.4)}
+.sol-card.red{color:#d32f2f}
+.sol-card.black{color:#111}
+.sol-card.back{background:linear-gradient(135deg,#1976D2,#0d47a1)}
+.sol-card.selected{outline:3px solid #FFC107;outline-offset:1px}
+.sol-tableau{display:flex;gap:8px}
+.sol-col{width:60px;position:relative;min-height:200px}
+#embedFrame{display:none;width:100%;height:100%;min-height:360px;border:0;border-radius:8px;background:#000}
+@media (max-width:900px){#embedFrame{min-height:300px}}
+#embedWrap{display:none;width:100%;max-width:960px;position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;border-radius:8px}
+#embedWrap #embedFrame{display:block}
+#embedFallback{display:none;background:#111827;border:2px dashed var(--sc);border-radius:8px;padding:26px 18px;color:var(--td);text-align:center;line-height:1.9}
+#embedFallback h3{font-size:17px;color:var(--sc);margin-bottom:10px}
+#embedFallback p{font-size:14px;color:var(--tm);margin-bottom:8px}
+#embedFallback .fb-btn{display:inline-block;margin-top:12px;background:var(--pr);color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-family:'Cairo',Tahoma,sans-serif;font-weight:700;font-size:14px;text-decoration:none}
+#embedLoading{display:none;padding:30px;color:var(--tm);font-size:15px;font-weight:700}
+#embedBar{display:block;margin-top:10px;text-align:center}
+#embedBar .fb-btn{background:#334155;font-size:13px;padding:8px 14px;display:inline-block;border-radius:6px;color:#fff;text-decoration:none;font-weight:700}
+#embedBar .fb-btn:hover{background:var(--pr)}
+.local-badge{background:#7c3aed}
+#fileWarning{display:none;background:#7f1d1d;border:1px solid #ef4444;color:#fee2e2;border-radius:10px;padding:14px 18px;margin-bottom:14px;font-size:14px;line-height:1.9}
+#fileWarning b{color:#fff}
+
+.footer{background:#0f172a;color:var(--tl);padding:20px;text-align:center;font-size:14px;border-top:1px solid var(--bd);margin-top:auto}
+
+/* شريط البحث */
+.search-bar{display:flex;align-items:center;background:#0f172a;border:2px solid var(--bd);border-radius:30px;padding:4px 12px;max-width:420px;width:100%;transition:border-color .3s,box-shadow .3s}
+.search-bar:focus-within{border-color:var(--pr);box-shadow:0 0 12px rgba(33,150,243,.35)}
+.search-icon{font-size:18px;color:var(--tl);margin-inline-end:8px;flex-shrink:0}
+.search-input{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:'Cairo',Tahoma,sans-serif;font-size:14px;padding:8px 4px}
+.search-input::placeholder{color:var(--tl);opacity:.7}
+.search-clear{background:var(--ac);color:#fff;border:none;border-radius:50%;width:28px;height:28px;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:14px;flex-shrink:0;margin-inline-start:4px}
+.search-clear.visible{display:flex}
+.search-results-count{display:none;background:var(--bgw);border-radius:0 0 12px 12px;padding:8px 18px;font-size:13px;color:var(--tm);border:1px solid var(--bd);border-top:none;margin-bottom:8px}
+.search-results-count.visible{display:block}
+.gc.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div>🎮 ألعاب عزيز - منصة الألعاب الداخلية الفورية الجاهزة</div>
+</div>
+
+<header class="header">
+    <div class="logo">
+        <div class="logo-icon">🕹️</div>
+        <div>
+            <div class="logo-text">ألعاب عزيز</div>
+            <div class="logo-sub">ألعاب مدمجة تعمل فوراً بدون روابط خارجية</div>
+        </div>
+    </div>
+    <div class="search-bar" id="searchBar">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن لعبة..." autocomplete="off">
+        <button class="search-clear" id="searchClear" title="مسح البحث">✕</button>
+    </div>
+</header>
+
+<div class="mc">
+    <!-- منطقة تشغيل الألعاب البرمجية المستقلة -->
+    <div class="game-player-container" id="playerContainer">
+        <div class="game-controls">
+            <span class="game-title-active" id="activeGameTitle">اسم اللعبة</span>
+            <button class="close-btn" onclick="closeGame()">❌ إغلاق اللعبة</button>
+        </div>
+        <div class="game-display-area">
+            <canvas id="snakeCanvas" width="400" height="400"></canvas>
+            <div id="ticTacToeGrid">
+                <div class="ttt-cell" onclick="makeTTTMove(0)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(1)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(2)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(3)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(4)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(5)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(6)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(7)"></div>
+                <div class="ttt-cell" onclick="makeTTTMove(8)"></div>
+            </div>
+            <canvas id="flappyCanvas" width="320" height="420"></canvas>
+            <canvas id="breakoutCanvas" width="400" height="400"></canvas>
+            <canvas id="dodgeCanvas" width="360" height="420"></canvas>
+            <canvas id="beatCanvas" width="500" height="360"></canvas>
+            <div id="chessBoard"></div>
+            <div id="solitaireArea">
+                <div class="sol-row" id="solTop">
+                    <div class="sol-pile" id="solStock"></div>
+                    <div class="sol-pile" id="solWaste"></div>
+                    <div style="flex:1"></div>
+                    <div class="sol-pile" id="solF0"></div>
+                    <div class="sol-pile" id="solF1"></div>
+                    <div class="sol-pile" id="solF2"></div>
+                    <div class="sol-pile" id="solF3"></div>
+                </div>
+                <div class="sol-tableau" id="solTableau"></div>
+            </div>
+            <div id="embedLoading">⏳ جارٍ تحميل اللعبة...</div>
+            <div id="embedWrap">
+                <iframe id="embedFrame" src="" title="مشغّل الألعاب"
+            width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen></iframe>
+                <div id="embedBar">
+                    <a class="fb-btn" id="embedOpenNew2" href="#" target="_blank" rel="noopener noreferrer">▶️ افتح اللعبة مباشرة</a>
+                </div>
+            </div>
+            <div id="embedFallback">
+                <h3>⚠️ لم تُفتح اللعبة داخل الصفحة</h3>
+                <p>هذه اللعبة تُحمَّل من موقع خارجي، وبعض المتصفحات تمنع تشغيلها داخل الصفحة إذا كان الملف مفتوحاً من جهازك مباشرة أو كان الاتصال بالإنترنت ضعيفاً.</p>
+                <p>يمكنك فتحها مباشرة من GameDistribution:</p>
+                <a class="fb-btn" id="embedOpenNew" href="#" target="_blank" rel="noopener noreferrer">▶️ افتح اللعبة مباشرة</a>
+            </div>
+        </div>
+        <div class="game-hint" id="gameHint"></div>
+    </div>
+
+    <main class="mn">
+        <div class="wb">
+            <h1>مرحباً بك في ألعاب عزيز!</h1>
+            <p>القسم الأول ألعاب مدمجة داخل الموقع تعمل دائماً حتى بدون إنترنت. القسم الثاني ألعاب خارجية تحتاج اتصال بالإنترنت ورفع الموقع على استضافة، وإن لم تفتح داخل الصفحة سيظهر لك زر لفتحها في تبويب جديد.</p>
+        </div>
+
+        <div id="fileWarning">
+            <b>تنبيه مهم:</b> أنت تفتح الموقع كملف محفوظ على جهازك، ولهذا السبب معظم الألعاب الخارجية لن تعمل داخل الصفحة (المتصفح يمنع ذلك لأسباب أمنية).
+            الألعاب المصنوعة داخل الموقع (بالأسفل في القسم البنفسجي) تعمل بشكل كامل الآن، أما الألعاب الخارجية فتحتاج رفع الموقع على استضافة إنترنت، أو استخدم زر «افتح في تبويب جديد».
+        </div>
+
+        <div class="search-results-count" id="searchResultsCount"></div>
+
+        <div class="sb-box">
+            <div class="st">🔥 ألعاب خارجية من GameDistribution (تحتاج إنترنت)</div>
+            <div class="gg" id="gamesGrid">
+                
+                <!-- كارت لعبة مضمّنة من GameDistribution (مرخصة رسمياً) -->
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/6d493125b300434fad9be4cf8c858bbd/', 'Hill Climb Pixel Car')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/6d493125b300434fad9be4cf8c858bbd-512x512.jpg" alt="Hill Climb Pixel Car" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Hill Climb Pixel Car</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e4af90c070cf499da371b44232a6aaca/', 'Meme Myth: Wukong')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e4af90c070cf499da371b44232a6aaca-512x512.jpg" alt="Meme Myth: Wukong" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Meme Myth: Wukong</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/bd9cc9da45b04ee293306209653d8cfb/', 'Annoying Boss Punch Game')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/bd9cc9da45b04ee293306209653d8cfb-512x512.jpg" alt="Annoying Boss Punch Game" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Annoying Boss Punch Game</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/557d5359337f4ed6aa97d2f1da0acf41/', 'Farm vs Zombies')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/557d5359337f4ed6aa97d2f1da0acf41-512x512.jpg" alt="Farm vs Zombies" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Farm vs Zombies</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1ab0c43c073e4de9a5fe96985d1ec084/', 'Card Clash: Battle Arena')">
+                    <div class="gt">
+                        <span class="tg tn">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1ab0c43c073e4de9a5fe96985d1ec084-512x512.jpg" alt="Card Clash: Battle Arena" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Card Clash: Battle Arena</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b9ad7cca160e4be386d5f62da00ada7e/', 'Burger Here')">
+                    <div class="gt">
+                        <span class="tg th">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b9ad7cca160e4be386d5f62da00ada7e-512x512.jpg" alt="Burger Here" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Burger Here</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ea48811b6b5545e7b0a9a7cd33902654/', 'Hero Pipe')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ea48811b6b5545e7b0a9a7cd33902654-512x512.jpg" alt="Hero Pipe" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Hero Pipe</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e02030349bf64a96b6c1b5f900510efe/', 'Screw Spin')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e02030349bf64a96b6c1b5f900510efe-512x512.jpg" alt="Screw Spin" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Screw Spin</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9c744a2dfb4b43e588b50db10999ed8e/', 'Sniper Shooter 2')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9c744a2dfb4b43e588b50db10999ed8e-512x512.jpg" alt="Sniper Shooter 2" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sniper Shooter 2</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/71cbc5e6851846f9b9b4319a070a61ae/', 'Battalion Commander 1917')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/71cbc5e6851846f9b9b4319a070a61ae-512x512.jpg" alt="Battalion Commander 1917" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Battalion Commander 1917</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff/', 'Wave Dash : Geometry Arrow')">
+                    <div class="gt">
+                        <span class="tg tn">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/50d154abb6c5483b847cbeea848e73ff-512x512.jpg" alt="Wave Dash : Geometry Arrow" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Wave Dash : Geometry Arrow</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d4a3629101574bc39bd8f9d1888ca58e/', 'Fireboy &amp; Watergirl 7: and Friends')">
+                    <div class="gt">
+                        <span class="tg th">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d4a3629101574bc39bd8f9d1888ca58e-512x512.jpg" alt="Fireboy &amp; Watergirl 7: and Friends" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Fireboy &amp; Watergirl 7: and Friends</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/16de13074932401f9f65f4023e586ab4/', 'Car Eats Car: Underwater Adventure')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/16de13074932401f9f65f4023e586ab4-512x512.jpeg" alt="Car Eats Car: Underwater Adventure" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Car Eats Car: Underwater Adventure</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/8e5f5ee4edd84cc7b5c3f32dc4aec649/', 'Light Bulb Puzzle')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/8e5f5ee4edd84cc7b5c3f32dc4aec649-512x512.jpg" alt="Light Bulb Puzzle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Light Bulb Puzzle</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ede2db8c5f4d4eef841c0cda948e4ecd/', 'Glam Guru Puzzle Collection')">
+                    <div class="gt">
+                        <span class="tg tn">بنات</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ede2db8c5f4d4eef841c0cda948e4ecd-512x512.jpg" alt="Glam Guru Puzzle Collection" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Glam Guru Puzzle Collection</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a448e4ebe42f42e29555207970cb75b7/', 'ASMR Beauty Clinic')">
+                    <div class="gt">
+                        <span class="tg th">بنات</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a448e4ebe42f42e29555207970cb75b7-512x512.jpg" alt="ASMR Beauty Clinic" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">ASMR Beauty Clinic</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/6196c00bcfbc49c5a240f10e009badda/', 'ASMR Tattoo Treatment')">
+                    <div class="gt">
+                        <span class="tg tn">بنات</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/6196c00bcfbc49c5a240f10e009badda-512x512.jpg" alt="ASMR Tattoo Treatment" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">ASMR Tattoo Treatment</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/4942941a222e4a6bac994c80a856fcb9/', 'From Nerd to Popular Ballerina Cappuccina')">
+                    <div class="gt">
+                        <span class="tg th">بنات</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/4942941a222e4a6bac994c80a856fcb9-512x512.jpg" alt="From Nerd to Popular Ballerina Cappuccina" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">From Nerd to Popular Ballerina Cappuccina</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c4853541e0434d19a5bfdd8c75887cb5/', 'Mr Stickman Gunner')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c4853541e0434d19a5bfdd8c75887cb5-512x512.jpg" alt="Mr Stickman Gunner" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mr Stickman Gunner</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/508663e69fe74b97a9192c779c3ff71f/', 'Ultimate Tower Defense')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/508663e69fe74b97a9192c779c3ff71f-512x512.jpg" alt="Ultimate Tower Defense" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Ultimate Tower Defense</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/fab6523bfe89443d89f7425f946c691d/', 'Brawl Stars Battle')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/fab6523bfe89443d89f7425f946c691d-512x512.jpg" alt="Brawl Stars Battle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Brawl Stars Battle</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ed99a63b0a35407792cbd1f93b7b7b83/', 'ColorWars.io - Conquest Game')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ed99a63b0a35407792cbd1f93b7b7b83-512x512.jpg" alt="ColorWars.io - Conquest Game" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">ColorWars.io - Conquest Game</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/4b94472f98f442339ca0eb5312950482/', 'Tiny Golf King')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/4b94472f98f442339ca0eb5312950482-512x512.jpg" alt="Tiny Golf King" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tiny Golf King</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b8a3a3d16c7f49ecbd08a4db26aecedd/', 'Best Classic Mahjong Connect')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b8a3a3d16c7f49ecbd08a4db26aecedd-512x512.jpg" alt="Best Classic Mahjong Connect" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Best Classic Mahjong Connect</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9190c99d4aae4e0085a6059478ee3520/', 'Plant Merge: Zombie War')">
+                    <div class="gt">
+                        <span class="tg tn">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9190c99d4aae4e0085a6059478ee3520-512x512.jpg" alt="Plant Merge: Zombie War" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Plant Merge: Zombie War</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/342812ed45d04664b62121a0ef09c2cb/', 'Food Tower Defense')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/342812ed45d04664b62121a0ef09c2cb-512x512.jpg" alt="Food Tower Defense" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Food Tower Defense</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/06ddc678a24c424785b944ab4ef5719e/', 'Snake Attack Shooter')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/06ddc678a24c424785b944ab4ef5719e-512x512.jpg" alt="Snake Attack Shooter" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Snake Attack Shooter</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ffea96f2185746d395668e20b18cf2ea/', 'Only Up Parkour')">
+                    <div class="gt">
+                        <span class="tg th">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ffea96f2185746d395668e20b18cf2ea-512x512.jpg" alt="Only Up Parkour" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Only Up Parkour</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/756ba194e9bb481e876a9d8ee3304258/', 'Arrow Cube Escape')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/756ba194e9bb481e876a9d8ee3304258-512x512.jpg" alt="Arrow Cube Escape" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Arrow Cube Escape</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/941884f64e32420fb9791859d7d3fba3/', 'Battle Shot Elite')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/941884f64e32420fb9791859d7d3fba3-512x512.jpg" alt="Battle Shot Elite" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Battle Shot Elite</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/5dff4319bd2845c781cd3378d86735ed/', 'Supermarket Manager Simulator')">
+                    <div class="gt">
+                        <span class="tg tn">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/5dff4319bd2845c781cd3378d86735ed-512x512.jpg" alt="Supermarket Manager Simulator" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Supermarket Manager Simulator</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b7c6b58e8a0841f984c2be418d3299d4/', 'Packing Line')">
+                    <div class="gt">
+                        <span class="tg th">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b7c6b58e8a0841f984c2be418d3299d4-512x512.jpg" alt="Packing Line" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Packing Line</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7b052821764b406d83f41d3e416227ee/', 'Color Sort: Impostor Edition')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7b052821764b406d83f41d3e416227ee-512x512.jpg" alt="Color Sort: Impostor Edition" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Color Sort: Impostor Edition</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0946201a460c4fd191f32bd497ee6c2a/', 'Impostor among us: Escape from prison')">
+                    <div class="gt">
+                        <span class="tg th">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0946201a460c4fd191f32bd497ee6c2a-512x512.jpg" alt="Impostor among us: Escape from prison" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Impostor among us: Escape from prison</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/54ae0c6997124ee1b169b42405ffcba8/', 'Traitor Beaver!')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/54ae0c6997124ee1b169b42405ffcba8-512x512.jpg" alt="Traitor Beaver!" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Traitor Beaver!</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c411ed3c0ac44ec29d91df090431df75/', 'SuStainable')">
+                    <div class="gt">
+                        <span class="tg th">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c411ed3c0ac44ec29d91df090431df75-512x512.jpg" alt="SuStainable" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">SuStainable</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/94f14de101df47568ffb9b5f91fa47f8/', '2048 Sort Factory')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/94f14de101df47568ffb9b5f91fa47f8-512x512.jpg" alt="2048 Sort Factory" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">2048 Sort Factory</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e41aeb486db5460c972b56afe000e727/', 'Sniper for Brainrot')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e41aeb486db5460c972b56afe000e727-512x512.jpg" alt="Sniper for Brainrot" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sniper for Brainrot</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/18e4d3589cc944b89baea65f7d7074e2/', 'Madness: Sheriff’s Compound OFFICIAL')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/18e4d3589cc944b89baea65f7d7074e2-512x512.jpg" alt="Madness: Sheriff’s Compound OFFICIAL" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Madness: Sheriff’s Compound OFFICIAL</div>
+                </div>
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0d6c422de82f4f6b832697ed1da3c0b7/', 'Moto Road Rash 3D 2')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0d6c422de82f4f6b832697ed1da3c0b7-512x512.jpg" alt="Moto Road Rash 3D 2" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Moto Road Rash 3D 2</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/571b9df027e449f78e3869ba19658754/', 'Penalty Shooters 2')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/571b9df027e449f78e3869ba19658754-512x512.jpeg" alt="Penalty Shooters 2" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Penalty Shooters 2</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a6ae873f4c4a4c7a95337b614e19a0ad/', 'Cyber Rolling Going Ball 3D')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a6ae873f4c4a4c7a95337b614e19a0ad-512x512.jpg" alt="Cyber Rolling Going Ball 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Cyber Rolling Going Ball 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/670fce13db0d4edbb396fa155db80f11/', 'Racing in City')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/670fce13db0d4edbb396fa155db80f11-512x512.jpg" alt="Racing in City" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Racing in City</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/837f9a9ab7694e7eaaee0824052425a8/', 'Cars vs Zombies')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/837f9a9ab7694e7eaaee0824052425a8-512x512.jpg" alt="Cars vs Zombies" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Cars vs Zombies</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7941fa7f0df84c53a5e1bf6f4833bc2e/', 'Triple Shelf Match')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7941fa7f0df84c53a5e1bf6f4833bc2e-512x512.jpg" alt="Triple Shelf Match" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Triple Shelf Match</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a9964948ad434acfb106811d323e6464/', 'Magic Brick Wars')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a9964948ad434acfb106811d323e6464-512x512.jpg" alt="Magic Brick Wars" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Magic Brick Wars</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/dd2ab5adad664c508d3fa032bd19e8c8/', 'Crazy Tunnel')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/dd2ab5adad664c508d3fa032bd19e8c8-512x512.jpg" alt="Crazy Tunnel" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Crazy Tunnel</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/714130906d7548e9b75bee2108ea9d10/', 'Money Factory: Tycoon Idle Game')">
+                    <div class="gt">
+                        <span class="tg th">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/714130906d7548e9b75bee2108ea9d10-512x512.jpg" alt="Money Factory: Tycoon Idle Game" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Money Factory: Tycoon Idle Game</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/72d861a52f3c4e788ae0421649633be3/', 'Build a Rollercoaster: Simulator')">
+                    <div class="gt">
+                        <span class="tg tn">بناء</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/72d861a52f3c4e788ae0421649633be3-512x512.jpg" alt="Build a Rollercoaster: Simulator" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Build a Rollercoaster: Simulator</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7e7b6107748646f2b18f69bf535663b6/', 'Merge Lagoon')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7e7b6107748646f2b18f69bf535663b6-512x512.jpg" alt="Merge Lagoon" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Merge Lagoon</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9dd243c7b2a243e4b9a7f92a23120c45/', 'Brawl Stars Brave Adventure')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9dd243c7b2a243e4b9a7f92a23120c45-512x512.jpg" alt="Brawl Stars Brave Adventure" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Brawl Stars Brave Adventure</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0447b6e77a524f1fb079b6f996aa56db/', 'Indygirl and the Golden Skull')">
+                    <div class="gt">
+                        <span class="tg th">مغامرات</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0447b6e77a524f1fb079b6f996aa56db-512x512.jpg" alt="Indygirl and the Golden Skull" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Indygirl and the Golden Skull</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/313616856c46421898b534c7899f30aa/', 'Vortex 9')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/313616856c46421898b534c7899f30aa-512x512.jpeg" alt="Vortex 9" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Vortex 9</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0bd1e5d745554a4c9d1defd57dd91aa5/', 'Cars with Guns: Wasteland Showdown')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0bd1e5d745554a4c9d1defd57dd91aa5-512x512.jpg" alt="Cars with Guns: Wasteland Showdown" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Cars with Guns: Wasteland Showdown</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/2f6ba268fd224e13b30c2b22bdd65606/', 'SKYHILL: Escape From the Skyscraper!')">
+                    <div class="gt">
+                        <span class="tg tn">بقاء</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/2f6ba268fd224e13b30c2b22bdd65606-512x512.jpg" alt="SKYHILL: Escape From the Skyscraper!" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">SKYHILL: Escape From the Skyscraper!</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/4187d9fa2d5c46788b2c297e88c78639/', 'CrazyZombies 3D')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/4187d9fa2d5c46788b2c297e88c78639-512x512.jpg" alt="CrazyZombies 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">CrazyZombies 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/63e4110fb71d4588a8f4b6081fea5bdb/', 'Cooking Empire')">
+                    <div class="gt">
+                        <span class="tg tn">طبخ</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/63e4110fb71d4588a8f4b6081fea5bdb-512x512.jpg" alt="Cooking Empire" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Cooking Empire</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d4ac17701fb3481fb27fe7156ba86ea3/', 'Shootup.io')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d4ac17701fb3481fb27fe7156ba86ea3-512x512.jpeg" alt="Shootup.io" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Shootup.io</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/4a29eff31ff54f6bba3826c71c30aa6d/', 'Jump.io')">
+                    <div class="gt">
+                        <span class="tg th">سرعة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/4a29eff31ff54f6bba3826c71c30aa6d-512x512.jpeg" alt="Jump.io" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Jump.io</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/61966483d4414acdafe08a9c6aeed32d/', 'Helix Jump')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/61966483d4414acdafe08a9c6aeed32d-512x384.jpeg" alt="Helix Jump" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Helix Jump</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/8fdff4cfcd0546b0a5751c551b3a5a99/', 'Catapultz.io')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/8fdff4cfcd0546b0a5751c551b3a5a99-512x512.jpeg" alt="Catapultz.io" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Catapultz.io</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/96b2420dc4344a6e946bf6da4a4f8c90/', 'Madmen Racing')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/96b2420dc4344a6e946bf6da4a4f8c90-512x512.jpeg" alt="Madmen Racing" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Madmen Racing</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1d45c2895ec843e49f9ca72239a99014/', '2D Car Racing')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1d45c2895ec843e49f9ca72239a99014-512x512.jpeg" alt="2D Car Racing" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">2D Car Racing</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0892eba96e364117b73df34b46d98c6d/', 'Match Masters')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0892eba96e364117b73df34b46d98c6d-512x512.jpg" alt="Match Masters" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Match Masters</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a065b77e1f29400dac2cdd4e0e84928c/', 'Match 20 Challenge')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a065b77e1f29400dac2cdd4e0e84928c-512x512.jpeg" alt="Match 20 Challenge" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Match 20 Challenge</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b24567e39b5248eabe77a704dbb555a9/', 'Sugar Heroes')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b24567e39b5248eabe77a704dbb555a9-512x512.jpeg" alt="Sugar Heroes" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sugar Heroes</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/edffc32e7aa34a489a07ba14e47186a6/', 'Microsoft Jewel')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/edffc32e7aa34a489a07ba14e47186a6-512x512.jpeg" alt="Microsoft Jewel" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Microsoft Jewel</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/639df47033804f18bf39e113ef29f4fa/', 'Candy Riddles')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/639df47033804f18bf39e113ef29f4fa-512x512.jpeg" alt="Candy Riddles" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Candy Riddles</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ed40354e856f4aae8ccac8b98d70dec3/', 'Jelly Madness')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ed40354e856f4aae8ccac8b98d70dec3-512x512.jpeg" alt="Jelly Madness" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Jelly Madness</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0b45f6b8a9ea4895a79a7b84b94ce608/', 'Monster Busters')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0b45f6b8a9ea4895a79a7b84b94ce608-512x512.jpeg" alt="Monster Busters" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Busters</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b12d1d6e10624959a15c8583051fffd1/', 'Funny Soccer Game')">
+                    <div class="gt">
+                        <span class="tg th">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b12d1d6e10624959a15c8583051fffd1-512x512.jpeg" alt="Funny Soccer Game" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Funny Soccer Game</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/26011873934f418c9ade7e0408a7d958/', 'Zombie Shooter')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/26011873934f418c9ade7e0408a7d958-512x512.jpeg" alt="Zombie Shooter" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Zombie Shooter</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f436f570a9a34ef88fdbd63607c603b6/', 'NIGHTPOINT.io')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f436f570a9a34ef88fdbd63607c603b6.jpg" alt="NIGHTPOINT.io" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">NIGHTPOINT.io</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0b024225d85c491fa77a271d46f64ca6/', 'Zombie Survival Shooter')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0b024225d85c491fa77a271d46f64ca6-512x512.jpeg" alt="Zombie Survival Shooter" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Zombie Survival Shooter</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b42d9c5983134c19a5a074eb78b40c31/', 'Zombie Shooter 3D')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b42d9c5983134c19a5a074eb78b40c31-512x512.jpeg" alt="Zombie Shooter 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Zombie Shooter 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b340afba827d473db55262fc7a9fa3f0/', 'Dead Target Zombie Shooter')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b340afba827d473db55262fc7a9fa3f0-512x512.jpeg" alt="Dead Target Zombie Shooter" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Dead Target Zombie Shooter</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/96136af62c624b6db5a6715af9dce922/', 'Zombies Shooter Part 1')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/96136af62c624b6db5a6715af9dce922-512x512.jpeg" alt="Zombies Shooter Part 1" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Zombies Shooter Part 1</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c66cc027a2c24f839b46b34589b63a2f/', 'Run Into Death')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c66cc027a2c24f839b46b34589b63a2f-512x512.jpeg" alt="Run Into Death" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Run Into Death</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/77e1107ca4be4fdfb62b498d014bbfa7/', 'Tower Defense')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/77e1107ca4be4fdfb62b498d014bbfa7-512x512.jpeg" alt="Tower Defense" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tower Defense</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d4ac0ead7ff5403eb3aa6ab620b0b959/', 'Gold Tower Defense')">
+                    <div class="gt">
+                        <span class="tg tn">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d4ac0ead7ff5403eb3aa6ab620b0b959-512x512.jpeg" alt="Gold Tower Defense" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Gold Tower Defense</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9d5ce386c89a472186b5e83caf8540df/', 'Tower Defense Alien War')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9d5ce386c89a472186b5e83caf8540df-512x512.jpeg" alt="Tower Defense Alien War" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tower Defense Alien War</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7f27295d85f24a16b0a9eb5df0f94fb1/', 'Tower Defense 2D')">
+                    <div class="gt">
+                        <span class="tg tn">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7f27295d85f24a16b0a9eb5df0f94fb1-512x512.jpeg" alt="Tower Defense 2D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tower Defense 2D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/3bd0f8720cf646a182e090abf5bc5fd6/', 'Bomb It TD')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/3bd0f8720cf646a182e090abf5bc5fd6.jpg" alt="Bomb It TD" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bomb It TD</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/dbb34e69b90b4e7184480f2bda7d5185/', 'Monster Tower Defense')">
+                    <div class="gt">
+                        <span class="tg tn">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/dbb34e69b90b4e7184480f2bda7d5185-512x512.jpeg" alt="Monster Tower Defense" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Tower Defense</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c893e7bde73b446b830655c56ca9e984/', 'Tower Defense Clash')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c893e7bde73b446b830655c56ca9e984-512x512.jpeg" alt="Tower Defense Clash" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tower Defense Clash</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/51584c2d602e403e8148df6a069ad5d5/', 'Random Cards Tower Defense')">
+                    <div class="gt">
+                        <span class="tg tn">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/51584c2d602e403e8148df6a069ad5d5-512x512.jpeg" alt="Random Cards Tower Defense" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Random Cards Tower Defense</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/fd659a85ea0848c997c016e033b26799/', 'Cursed Treasure 2')">
+                    <div class="gt">
+                        <span class="tg th">استراتيجية</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/fd659a85ea0848c997c016e033b26799-512x512.jpeg" alt="Cursed Treasure 2" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Cursed Treasure 2</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/83f80b1451554638b7a480535ab42a31/', 'Idle Drive: Merge, Upgrade, Drive')">
+                    <div class="gt">
+                        <span class="tg tn">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/83f80b1451554638b7a480535ab42a31-512x512.jpg" alt="Idle Drive: Merge, Upgrade, Drive" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Idle Drive: Merge, Upgrade, Drive</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/bb21440bc89d469481bd8f7f3955f606/', 'Idle Fish')">
+                    <div class="gt">
+                        <span class="tg th">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/bb21440bc89d469481bd8f7f3955f606-512x512.jpeg" alt="Idle Fish" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Idle Fish</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7dc10eb57d1a4749b3978064a8103151/', 'Stunt Bike')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7dc10eb57d1a4749b3978064a8103151-512x512.jpeg" alt="Stunt Bike" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stunt Bike</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/dfbb370234b5429291e6cc5e4fa22389/', 'Trial Bike Epic Stunts')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/dfbb370234b5429291e6cc5e4fa22389-512x512.jpeg" alt="Trial Bike Epic Stunts" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Trial Bike Epic Stunts</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/846aa5c70a104bafbb4b1d223a9771c0/', 'Sky Bike Stunt 3D')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/846aa5c70a104bafbb4b1d223a9771c0-512x512.jpeg" alt="Sky Bike Stunt 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sky Bike Stunt 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/6c52d6ae7aaf4eea95bc4858b017ee56/', 'Motocross Beach Game')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/6c52d6ae7aaf4eea95bc4858b017ee56-512x512.jpeg" alt="Motocross Beach Game" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Motocross Beach Game</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ebf7bb5f025d46feb8d175e2487c31fe/', 'Katana Fruits')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ebf7bb5f025d46feb8d175e2487c31fe.jpg" alt="Katana Fruits" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Katana Fruits</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1db48f525af84034bfb1edc075e6ca39/', 'Parking Master 3D')">
+                    <div class="gt">
+                        <span class="tg th">قيادة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1db48f525af84034bfb1edc075e6ca39-512x512.jpeg" alt="Parking Master 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Parking Master 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/6635799588e24629b3d3fdb80972061a/', 'School Bus Simulation')">
+                    <div class="gt">
+                        <span class="tg tn">قيادة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/6635799588e24629b3d3fdb80972061a-512x384.jpeg" alt="School Bus Simulation" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">School Bus Simulation</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c3f0f0c6731a4d908d978fb7906a0b17/', 'Bubble Shooter Extreme')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c3f0f0c6731a4d908d978fb7906a0b17-512x512.jpg" alt="Bubble Shooter Extreme" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Shooter Extreme</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f31526290b554f818b3bf63cc25e421e/', 'Bubble Shooter Classic')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f31526290b554f818b3bf63cc25e421e-512x512.jpeg" alt="Bubble Shooter Classic" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Shooter Classic</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1af7162fcd7347c580350c8c34ea5f7b/', 'Bubble Fight IO')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1af7162fcd7347c580350c8c34ea5f7b-512x512.jpeg" alt="Bubble Fight IO" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Fight IO</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/27673bc45d2e4b27b7cd24e422f7c257/', 'Bubble Game 3')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/27673bc45d2e4b27b7cd24e422f7c257-512x512.jpg" alt="Bubble Game 3" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Game 3</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/6de01c8cd40a49d0bb5830af72d77e05/', 'Bubble Shooter Deluxe')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/6de01c8cd40a49d0bb5830af72d77e05-512x512.jpeg" alt="Bubble Shooter Deluxe" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Shooter Deluxe</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/502af82350a44582b6e51d467285a8c0/', 'Bubble Hit')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/502af82350a44582b6e51d467285a8c0-512x512.jpg" alt="Bubble Hit" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Hit</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7fc6f8f8df2940318fc3e4ee4152c5e4/', 'Bubble Shooter Wheel')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7fc6f8f8df2940318fc3e4ee4152c5e4-512x512.jpeg" alt="Bubble Shooter Wheel" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Shooter Wheel</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f64448e3486a424eb60d72827083f05b/', 'Bubble Shooter Billiards Pool')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f64448e3486a424eb60d72827083f05b-512x512.jpg" alt="Bubble Shooter Billiards Pool" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Shooter Billiards Pool</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/8b12770c8baa41c6a7dba57f7961809f/', 'Stickman Street Fighting 3D')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/8b12770c8baa41c6a7dba57f7961809f-512x512.jpeg" alt="Stickman Street Fighting 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Street Fighting 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/07d6b2103c184f19bc6c1c5826d5a996/', 'Mahjong Connect HD')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/07d6b2103c184f19bc6c1c5826d5a996.jpg" alt="Mahjong Connect HD" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mahjong Connect HD</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/4742169f6c08407a9ff2418caf7c1193/', 'Mahjong Connect Deluxe')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/4742169f6c08407a9ff2418caf7c1193-512x512.jpeg" alt="Mahjong Connect Deluxe" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mahjong Connect Deluxe</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a7f5393b417346268657f3bd67eac24e/', 'Mahjong Connect')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a7f5393b417346268657f3bd67eac24e-512x512.jpg" alt="Mahjong Connect" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mahjong Connect</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d0ad1ecb9199401db8c4c230ebc8081b/', 'Mahjong Connect Remastered')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d0ad1ecb9199401db8c4c230ebc8081b-512x512.jpeg" alt="Mahjong Connect Remastered" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mahjong Connect Remastered</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0e9740e72bf147c0bc0dfbfe9ce3fb98/', 'Mahjong Connect 2')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0e9740e72bf147c0bc0dfbfe9ce3fb98-512x512.jpg" alt="Mahjong Connect 2" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mahjong Connect 2</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/cedf14eae1f341d3bd90770bc049f0e3/', 'Sniper 3D Gun Shooter')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/cedf14eae1f341d3bd90770bc049f0e3-512x512.jpeg" alt="Sniper 3D Gun Shooter" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sniper 3D Gun Shooter</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/642dfd66d764496ab2102d688c63ef36/', 'Sniper Elite 3D')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/642dfd66d764496ab2102d688c63ef36-512x512.jpg" alt="Sniper Elite 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sniper Elite 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/765c59e45d474bffb3c653714f952be5/', 'Sniper vs Sniper')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/765c59e45d474bffb3c653714f952be5-512x512.jpg" alt="Sniper vs Sniper" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Sniper vs Sniper</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/5f64d55ddf874545a9cc1fdc37fcf4f6/', 'Stickman Sniper 3')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/5f64d55ddf874545a9cc1fdc37fcf4f6-512x512.jpeg" alt="Stickman Sniper 3" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Sniper 3</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/98d6071c904d4a808b7598bad77869f8/', 'Super Sniper Missions')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/98d6071c904d4a808b7598bad77869f8-512x512.jpg" alt="Super Sniper Missions" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Super Sniper Missions</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d19362d150914a1a9a2d21b2edd9611d/', 'Super Sniper')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d19362d150914a1a9a2d21b2edd9611d-512x384.jpeg" alt="Super Sniper" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Super Sniper</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c3a70ae98547407a92ebedca8b79fdfa/', 'Rooftop Snipers')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c3a70ae98547407a92ebedca8b79fdfa-512x512.jpeg" alt="Rooftop Snipers" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Rooftop Snipers</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a81c87f3a54f436eb152eb8654a6b254/', 'Bike Stunt Race Master 3D')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a81c87f3a54f436eb152eb8654a6b254-512x512.jpeg" alt="Bike Stunt Race Master 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bike Stunt Race Master 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e3dc1daa920848da92850e2aa888290d/', 'Bike Stunt Driving Simulator 3D')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e3dc1daa920848da92850e2aa888290d-512x512.jpeg" alt="Bike Stunt Driving Simulator 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bike Stunt Driving Simulator 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f237e3be723a4baea1f4f82fc64fb0e8/', 'Police Motorbike Traffic Rider')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f237e3be723a4baea1f4f82fc64fb0e8-512x512.jpeg" alt="Police Motorbike Traffic Rider" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Police Motorbike Traffic Rider</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b8c4cb774d1a4d22b4c52273e817444b/', 'City Bike Stunt 2')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b8c4cb774d1a4d22b4c52273e817444b-512x512.jpeg" alt="City Bike Stunt 2" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">City Bike Stunt 2</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1d0fab7736e74647beb9f64d1aa80830/', 'City Bike Ride')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1d0fab7736e74647beb9f64d1aa80830-512x512.jpeg" alt="City Bike Ride" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">City Bike Ride</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/de81b02c4e2e4bdca3d4eb80d8f72f5a/', 'Port Truck Parking')">
+                    <div class="gt">
+                        <span class="tg th">قيادة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/de81b02c4e2e4bdca3d4eb80d8f72f5a-512x512.jpg" alt="Port Truck Parking" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Port Truck Parking</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7de4c5be03af47feb0fb9ada3276ac72/', 'Parking Jam Online')">
+                    <div class="gt">
+                        <span class="tg tn">قيادة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7de4c5be03af47feb0fb9ada3276ac72-512x384.jpeg" alt="Parking Jam Online" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Parking Jam Online</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7237e6c7cab44fef9c32bbb689bee018/', 'Airplane Parking Mania 3D')">
+                    <div class="gt">
+                        <span class="tg th">قيادة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7237e6c7cab44fef9c32bbb689bee018-512x512.jpg" alt="Airplane Parking Mania 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Airplane Parking Mania 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/96b812dce6f04b8e980653febc451f08/', 'Bubble Shooter Challenge')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/96b812dce6f04b8e980653febc451f08-512x512.jpeg" alt="Bubble Shooter Challenge" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bubble Shooter Challenge</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e72d1c40b899460a8964d807213bcf9a/', 'Stickman Hero Fight')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e72d1c40b899460a8964d807213bcf9a-512x512.jpeg" alt="Stickman Hero Fight" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Hero Fight</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1d7959f081b4453498ee9916b693988c/', 'Stick Duel Battle')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1d7959f081b4453498ee9916b693988c-512x512.jpeg" alt="Stick Duel Battle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stick Duel Battle</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f7bdca6e1d414f6fa0984a22551ab4b1/', 'Stickman Fighting 3D')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f7bdca6e1d414f6fa0984a22551ab4b1-512x512.jpeg" alt="Stickman Fighting 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Fighting 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/89d3a50c38c14692be0f5d1a3b872ef2/', 'Stickman Fighter Mega Brawl')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/89d3a50c38c14692be0f5d1a3b872ef2-512x512.jpeg" alt="Stickman Fighter Mega Brawl" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Fighter Mega Brawl</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/73ced0a3bf014a96b81c3b5e53ac5aa3/', 'Stickman Battle Ultimate Fight')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/73ced0a3bf014a96b81c3b5e53ac5aa3-512x512.jpg" alt="Stickman Battle Ultimate Fight" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Battle Ultimate Fight</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/3f4c166817ad4fd4b5b05d9adba22fcd/', 'Stickman Archero Fight')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/3f4c166817ad4fd4b5b05d9adba22fcd-512x512.jpg" alt="Stickman Archero Fight" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Archero Fight</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ce63d1a2a0504bce98262feba7ee7310/', 'Z Stick Duel Fighting')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ce63d1a2a0504bce98262feba7ee7310-512x512.jpg" alt="Z Stick Duel Fighting" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Z Stick Duel Fighting</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b91615ae558c4b4caab812eb3c02fa9e/', 'Stickman Fighter Epic Battles')">
+                    <div class="gt">
+                        <span class="tg tn">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b91615ae558c4b4caab812eb3c02fa9e-512x512.jpeg" alt="Stickman Fighter Epic Battles" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Fighter Epic Battles</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/44d74fbccd244c71845b47ebb0fb3fe6/', 'Stickman Fights')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/44d74fbccd244c71845b47ebb0fb3fe6-512x512.jpeg" alt="Stickman Fights" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stickman Fights</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ecb7621a1dec4a928772ad3db23abe84/', 'Squid Mahjong Connect')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ecb7621a1dec4a928772ad3db23abe84-512x512.jpeg" alt="Squid Mahjong Connect" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Squid Mahjong Connect</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/60c13c4c733a4683bd8f2e0e69ad65ba/', 'Mahjong Connect Gold')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/60c13c4c733a4683bd8f2e0e69ad65ba-512x512.jpg" alt="Mahjong Connect Gold" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Mahjong Connect Gold</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a571b6b492c14d24ae77e6513c6a4e65/', 'Drifty Race')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a571b6b492c14d24ae77e6513c6a4e65-512x384.jpeg" alt="Drifty Race" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Drifty Race</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1854c63811784af5b7740e4473c48f63/', 'Real Drift Car Simulator 3D')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1854c63811784af5b7740e4473c48f63-512x512.jpeg" alt="Real Drift Car Simulator 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Real Drift Car Simulator 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e6c2e2c2bfd9480598c623ffde6f1e27/', 'GTR Drift Fever')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e6c2e2c2bfd9480598c623ffde6f1e27-512x512.jpeg" alt="GTR Drift Fever" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">GTR Drift Fever</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f797ad702a714efaaa1e9c5b570302ea/', 'Drift Max Inception')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f797ad702a714efaaa1e9c5b570302ea-512x512.jpg" alt="Drift Max Inception" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Drift Max Inception</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/4e9df6d15d8c437686e775392cf7f5b6/', 'Max Drift Car Simulator')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/4e9df6d15d8c437686e775392cf7f5b6-512x512.jpeg" alt="Max Drift Car Simulator" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Max Drift Car Simulator</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/2039402edc72404a800bef78c0fd1317/', 'City Car Racing Simulator 3D')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/2039402edc72404a800bef78c0fd1317-512x512.jpeg" alt="City Car Racing Simulator 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">City Car Racing Simulator 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9c7ddfc283394711aebe3ab903aa7c73/', 'Drift Car Stunt Simulator')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9c7ddfc283394711aebe3ab903aa7c73-512x512.jpeg" alt="Drift Car Stunt Simulator" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Drift Car Stunt Simulator</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0d5638ba819b4b87bc93b4a9942eeacc/', 'Lambo Drifter')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0d5638ba819b4b87bc93b4a9942eeacc-512x512.jpeg" alt="Lambo Drifter" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Lambo Drifter</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/7ac6a0460b934ec69fefd8269de9e2c2/', 'Drift 3')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/7ac6a0460b934ec69fefd8269de9e2c2-512x512.jpeg" alt="Drift 3" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Drift 3</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/3df9e68018ef402ebc98d0cc5aa8b39b/', 'Supra Racing Speed Turbo Drift')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/3df9e68018ef402ebc98d0cc5aa8b39b-512x384.jpeg" alt="Supra Racing Speed Turbo Drift" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Supra Racing Speed Turbo Drift</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/3d2ad2a97f884d8a9ed2246e58683689/', 'Drift F1')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/3d2ad2a97f884d8a9ed2246e58683689-512x512.jpeg" alt="Drift F1" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Drift F1</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ea013ed9ec134a448858b19d50e45e31/', 'Real Stunts Drift Car Driving 3D')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ea013ed9ec134a448858b19d50e45e31-512x512.jpeg" alt="Real Stunts Drift Car Driving 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Real Stunts Drift Car Driving 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a691e5a48f534ca4b36a0dd4a4a2c1ee/', 'Real Drift Pro')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a691e5a48f534ca4b36a0dd4a4a2c1ee-512x512.jpeg" alt="Real Drift Pro" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Real Drift Pro</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d632553ef7264d99aa438310073a6dc3/', 'NSR Street Car Racing')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d632553ef7264d99aa438310073a6dc3-512x512.jpg" alt="NSR Street Car Racing" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">NSR Street Car Racing</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f04152d15b5c48758757082877a72430/', 'GTR Drift Legend')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f04152d15b5c48758757082877a72430-512x512.jpeg" alt="GTR Drift Legend" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">GTR Drift Legend</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ded84d947c904ff581948cad0d4ee864/', 'Fun Hidden Objects')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ded84d947c904ff581948cad0d4ee864-512x512.jpeg" alt="Fun Hidden Objects" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Fun Hidden Objects</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/72b0dc0f7d5a4d2cae8f40f2b12f3268/', 'Among Them Find Us')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/72b0dc0f7d5a4d2cae8f40f2b12f3268-512x512.jpeg" alt="Among Them Find Us" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Among Them Find Us</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/616c481c1aea4b77b04637c3832955a7/', 'Happy Farm The Crop')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/616c481c1aea4b77b04637c3832955a7-512x512.jpeg" alt="Happy Farm The Crop" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Happy Farm The Crop</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/bcfc4f9d05ea41589db1b7f1352141da/', 'Farm Match Seasons')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/bcfc4f9d05ea41589db1b7f1352141da-512x512.jpeg" alt="Farm Match Seasons" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Farm Match Seasons</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a1c8aeec5147454eb27fed0bb278cba2/', 'Little Farm Clicker')">
+                    <div class="gt">
+                        <span class="tg th">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a1c8aeec5147454eb27fed0bb278cba2-512x512.jpeg" alt="Little Farm Clicker" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Little Farm Clicker</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/85253b77ed8344a8934689842f2e5729/', 'Monster Truck Driving Simulator')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/85253b77ed8344a8934689842f2e5729-512x512.jpeg" alt="Monster Truck Driving Simulator" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck Driving Simulator</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/58bacdddaa5e4b4493ca75c5ad0d5872/', 'Monster Truck 2D')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/58bacdddaa5e4b4493ca75c5ad0d5872-512x512.jpeg" alt="Monster Truck 2D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck 2D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b9f0acd4f32c49dc84814254f16cf618/', 'Real Simulator Monster Truck')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b9f0acd4f32c49dc84814254f16cf618-512x512.jpeg" alt="Real Simulator Monster Truck" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Real Simulator Monster Truck</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/651fba56df4f47e58cfbe7f52b2d86c4/', 'Monster Truck Stunt Driving Simulation')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/651fba56df4f47e58cfbe7f52b2d86c4-512x512.jpeg" alt="Monster Truck Stunt Driving Simulation" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck Stunt Driving Simulation</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/daed8e4c845340509d280351537dea37/', 'Monster Truck 2 Player Game')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/daed8e4c845340509d280351537dea37-512x512.jpeg" alt="Monster Truck 2 Player Game" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck 2 Player Game</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e3cca9fa234a4801919f93361d7e7700/', 'Monster Truck Rider')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e3cca9fa234a4801919f93361d7e7700-512x512.jpeg" alt="Monster Truck Rider" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck Rider</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/40c5051acae84fb98d30a0bf14119cb5/', 'Monster Truck Water Surfing')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/40c5051acae84fb98d30a0bf14119cb5-512x512.jpeg" alt="Monster Truck Water Surfing" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck Water Surfing</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/90388b9fcce14474aa97c84494fbc461/', 'Impossible Monster Truck Race 2021')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/90388b9fcce14474aa97c84494fbc461-512x512.jpeg" alt="Impossible Monster Truck Race 2021" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Impossible Monster Truck Race 2021</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/b99f945ec95b4ce2946e068becec9ce8/', 'Monster Truck Memory')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/b99f945ec95b4ce2946e068becec9ce8-512x512.jpeg" alt="Monster Truck Memory" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Truck Memory</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/73192351c14e457e821bf7d4e4eee828/', 'Monster Race 3D')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/73192351c14e457e821bf7d4e4eee828-512x512.jpeg" alt="Monster Race 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Monster Race 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/2ae97110aae04549a807bdcee9aa3c8d/', 'Basketball Slam Dunk')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/2ae97110aae04549a807bdcee9aa3c8d-512x512.jpeg" alt="Basketball Slam Dunk" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Basketball Slam Dunk</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/392993c41bc84171a854b508659dc433/', 'Dunk It Up')">
+                    <div class="gt">
+                        <span class="tg th">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/392993c41bc84171a854b508659dc433-512x512.jpeg" alt="Dunk It Up" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Dunk It Up</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/591a5f6390cd4a2a95782ef203bc7438/', '3D Basketball.io Dunk Sport')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/591a5f6390cd4a2a95782ef203bc7438-512x512.jpg" alt="3D Basketball.io Dunk Sport" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">3D Basketball.io Dunk Sport</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/6b5e50d2d60c4441a3dc57ce574a8239/', 'Dunk Challenge')">
+                    <div class="gt">
+                        <span class="tg th">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/6b5e50d2d60c4441a3dc57ce574a8239-512x512.jpg" alt="Dunk Challenge" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Dunk Challenge</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/cf2e5965522f47ccadb7e5c07793908b/', 'Dunk Legend')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/cf2e5965522f47ccadb7e5c07793908b-512x384.jpeg" alt="Dunk Legend" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Dunk Legend</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/32a3e5b142cc4ab2b94887e346f7e692/', 'Street Dunk')">
+                    <div class="gt">
+                        <span class="tg th">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/32a3e5b142cc4ab2b94887e346f7e692-512x512.jpeg" alt="Street Dunk" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Street Dunk</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/1e114557c82349ffa04089dcbfb0605b/', 'Basket Slam Dunk')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/1e114557c82349ffa04089dcbfb0605b.jpg" alt="Basket Slam Dunk" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Basket Slam Dunk</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/edb86aef24fc462cbe665ef1d439e7ad/', 'Jump Dunk 3D')">
+                    <div class="gt">
+                        <span class="tg th">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/edb86aef24fc462cbe665ef1d439e7ad-512x512.jpeg" alt="Jump Dunk 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Jump Dunk 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e6d46987e82841d585919ccc32664b44/', 'Ragdoll Mega Dunk')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e6d46987e82841d585919ccc32664b44-512x512.jpg" alt="Ragdoll Mega Dunk" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Ragdoll Mega Dunk</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec/', 'Basketball Stars')">
+                    <div class="gt">
+                        <span class="tg th">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec-512x512.jpg" alt="Basketball Stars" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Basketball Stars</div>
+                </div>
+
+                <!-- دفعة ألعاب جديدة مضافة -->
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/563a3f252c6e4ef8a7fa4a59b9f47c5c/', 'Geometry Rush 4D')">
+                    <div class="gt">
+                        <span class="tg tn">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/563a3f252c6e4ef8a7fa4a59b9f47c5c-512x512.jpg" alt="Geometry Rush 4D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Geometry Rush 4D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/8b65f47d53a6406c8bc767cd1a16a2ec/', 'Geometry Dash Classic')">
+                    <div class="gt">
+                        <span class="tg th">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/8b65f47d53a6406c8bc767cd1a16a2ec-512x512.jpeg" alt="Geometry Dash Classic" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Geometry Dash Classic</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/82a43013636b44e2b7593fb73026e570/', 'Vortex.io')">
+                    <div class="gt">
+                        <span class="tg tn">io</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/82a43013636b44e2b7593fb73026e570-512x512.jpg" alt="Vortex.io" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Vortex.io</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/dc7eea27033344bcb0dd85686e16bc86/', 'Red Ball Forever')">
+                    <div class="gt">
+                        <span class="tg th">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/dc7eea27033344bcb0dd85686e16bc86-512x512.jpeg" alt="Red Ball Forever" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Red Ball Forever</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c57e80a56f934803a9c5a7d8a2f89c71/', 'Furious Adventure 2: trap')">
+                    <div class="gt">
+                        <span class="tg tn">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c57e80a56f934803a9c5a7d8a2f89c71-512x512.jpeg" alt="Furious Adventure 2: trap" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Furious Adventure 2: trap</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/83085f4569024404b66e2bbb14507a0c/', 'Snow Rider 3D nostalgia')">
+                    <div class="gt">
+                        <span class="tg th">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/83085f4569024404b66e2bbb14507a0c-512x512.jpg" alt="Snow Rider 3D nostalgia" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Snow Rider 3D nostalgia</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a114410bad2b4601b933f165fafa30b4/', 'Ghost Escape 3D')">
+                    <div class="gt">
+                        <span class="tg tn">رعب</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a114410bad2b4601b933f165fafa30b4-512x512.jpg" alt="Ghost Escape 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Ghost Escape 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d23ef0b52dff4139877d090b333177fe/', 'Zombie Royale.io')">
+                    <div class="gt">
+                        <span class="tg th">أكشن</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d23ef0b52dff4139877d090b333177fe-512x512.jpeg" alt="Zombie Royale.io" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Zombie Royale.io</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/8f07339e65ae4c739e1c406da7c51e26/', 'Tetro Merge')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/8f07339e65ae4c739e1c406da7c51e26-512x512.jpg" alt="Tetro Merge" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tetro Merge</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/0e678f2a73174718b682054a8b24ab4b/', 'Color Block Jam')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/0e678f2a73174718b682054a8b24ab4b-512x512.jpg" alt="Color Block Jam" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Color Block Jam</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f32dfc95b9054cccbd6b187f9596e220/', 'Home Block Story')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f32dfc95b9054cccbd6b187f9596e220-512x512.jpg" alt="Home Block Story" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Home Block Story</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/df358b2a36f44e3fae813759d29bc384/', 'Paperly - Paper Plane Adventure')">
+                    <div class="gt">
+                        <span class="tg th">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/df358b2a36f44e3fae813759d29bc384-512x512.jpg" alt="Paperly - Paper Plane Adventure" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Paperly - Paper Plane Adventure</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9f231dbdef784e01bb2085568252313a/', 'Carrot Mania')">
+                    <div class="gt">
+                        <span class="tg tn">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9f231dbdef784e01bb2085568252313a-512x512.jpeg" alt="Carrot Mania" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Carrot Mania</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f2af2ecc05a445edb6862c589e996a7e/', 'Tomb Runner')">
+                    <div class="gt">
+                        <span class="tg th">مغامرة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f2af2ecc05a445edb6862c589e996a7e-512x512.jpg" alt="Tomb Runner" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Tomb Runner</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d575aee0af634062971649c1d5b04f8f/', 'Basket Shot Master')">
+                    <div class="gt">
+                        <span class="tg tn">رياضة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d575aee0af634062971649c1d5b04f8f-512x512.jpeg" alt="Basket Shot Master" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Basket Shot Master</div>
+                </div>
+
+                <!-- دفعة ألعاب جديدة -->
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/761c53809343478e81bb29fa3bd901ce/', 'Draw Climber Online')">
+                    <div class="gt">
+                        <span class="tg th">مهارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/761c53809343478e81bb29fa3bd901ce-512x384.jpeg" alt="Draw Climber Online" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Draw Climber Online</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/93800b71d8184f44920c2a846d7fd870/', 'Stack Ball Fall 3D')">
+                    <div class="gt">
+                        <span class="tg tn">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/93800b71d8184f44920c2a846d7fd870-512x512.jpeg" alt="Stack Ball Fall 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stack Ball Fall 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/aaf58f10db4c4b50942d281f7078c95f/', 'Stack Ball Fun')">
+                    <div class="gt">
+                        <span class="tg th">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/aaf58f10db4c4b50942d281f7078c95f-512x512.jpeg" alt="Stack Ball Fun" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Stack Ball Fun</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/ef58e78163c34178ab45b26f7eb0fde3/', 'Knife Smash')">
+                    <div class="gt">
+                        <span class="tg tn">مهارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/ef58e78163c34178ab45b26f7eb0fde3-512x512.jpeg" alt="Knife Smash" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Knife Smash</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/d882b7ce8c7145c5b20bef128bd2fabf/', 'Solitaire Summer: Klondike')">
+                    <div class="gt">
+                        <span class="tg th">ورق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/d882b7ce8c7145c5b20bef128bd2fabf-512x512.jpg" alt="Solitaire Summer: Klondike" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Solitaire Summer: Klondike</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/337302b23b5943d8bcfc501d81d50cdb/', 'Traffic Jam 3D')">
+                    <div class="gt">
+                        <span class="tg tn">سباق</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/337302b23b5943d8bcfc501d81d50cdb-512x512.jpeg" alt="Traffic Jam 3D" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Traffic Jam 3D</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/bab12640b4e34ef6886449f98329dd16/', 'Water Sort Puzzle')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/bab12640b4e34ef6886449f98329dd16-512x512.jpeg" alt="Water Sort Puzzle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Water Sort Puzzle</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/cc1bbc59c9084433875d192ac22e3ec5/', 'Ball Sort Puzzle')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/cc1bbc59c9084433875d192ac22e3ec5-512x512.jpeg" alt="Ball Sort Puzzle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Ball Sort Puzzle</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/9eadf91eca9e4f22ac59df15e7f14257/', 'Ball Sort Puzzle New')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/9eadf91eca9e4f22ac59df15e7f14257-512x512.jpeg" alt="Ball Sort Puzzle New" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Ball Sort Puzzle New</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/e91a77432b204af5aa1383da63f90835/', 'Lipuzz Water Sort Puzzle')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/e91a77432b204af5aa1383da63f90835-512x512.jpeg" alt="Lipuzz Water Sort Puzzle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Lipuzz Water Sort Puzzle</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/31fb6b1c5e774aebad364c1632751856/', 'Idle Miners')">
+                    <div class="gt">
+                        <span class="tg th">إدارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/31fb6b1c5e774aebad364c1632751856-512x512.jpeg" alt="Idle Miners" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Idle Miners</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f9244ef8805349fab90038b73bb294b7/', 'Bottle Flip Challenge')">
+                    <div class="gt">
+                        <span class="tg tn">مهارة</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f9244ef8805349fab90038b73bb294b7.jpg" alt="Bottle Flip Challenge" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Bottle Flip Challenge</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/3aba864889404f028dcef6403b7caabd/', 'Rolling Sky')">
+                    <div class="gt">
+                        <span class="tg th">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/3aba864889404f028dcef6403b7caabd-512x384.jpeg" alt="Rolling Sky" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Rolling Sky</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/8baa45aabd504c1ab7a6c4ee9b1a336f/', 'EG Subway Surfers')">
+                    <div class="gt">
+                        <span class="tg tn">أركيد</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/8baa45aabd504c1ab7a6c4ee9b1a336f-512x512.jpeg" alt="EG Subway Surfers" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">EG Subway Surfers</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/57dccdd922f146b6be9171c5041e810f/', 'Summer Onet Connect')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/57dccdd922f146b6be9171c5041e810f-512x512.jpg" alt="Summer Onet Connect" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Summer Onet Connect</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/f423d4d8bc40433484787d614333399a/', 'Color Nonogram Puzzle')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/f423d4d8bc40433484787d614333399a-512x512.jpg" alt="Color Nonogram Puzzle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Color Nonogram Puzzle</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/2dee9d404697435aa76111eb4015e1d5/', 'Merge Fruit')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/2dee9d404697435aa76111eb4015e1d5-512x512.jpeg" alt="Merge Fruit" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Merge Fruit</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/a3889875d26547899d96b0364d6473f5/', 'Magic Sort')">
+                    <div class="gt">
+                        <span class="tg tn">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/a3889875d26547899d96b0364d6473f5-512x512.jpg" alt="Magic Sort" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Magic Sort</div>
+                </div>
+
+                <div class="gc game-card" onclick="startEmbedGame('https://html5.gamedistribution.com/c243d582cdca401db63b1e38e5a6e8ff/', 'Jewel Shuffle')">
+                    <div class="gt">
+                        <span class="tg th">ألغاز</span>
+                        <img class="real-thumb" src="https://img.gamedistribution.com/c243d582cdca401db63b1e38e5a6e8ff-512x512.jpeg" alt="Jewel Shuffle" loading="lazy">
+                        <div class="po"><div class="pc">▶</div></div>
+                    </div>
+                    <div class="gn">Jewel Shuffle</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="sb-box">
+            <div class="st">🎮 ألعاب داخلية تعمل دائماً بدون إنترنت (8 ألعاب)</div>
+            <div class="gg" id="localGamesGrid">
+                <div class="gc game-card" onclick="startSnakeGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">🐍</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">لعبة الثعبان</div>
+                </div>
+                <div class="gc game-card" onclick="startTicTacToe()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">❌⭕</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">إكس أو (XO)</div>
+                </div>
+                <div class="gc game-card" onclick="startFlappyGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">🐤</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">الطائر القافز</div>
+                </div>
+                <div class="gc game-card" onclick="startBreakoutGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">🧱</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">كسر الطوب</div>
+                </div>
+                <div class="gc game-card" onclick="startDodgeGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">🚧</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">تفادي العوائق</div>
+                </div>
+                <div class="gc game-card" onclick="startBeatGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">🥊</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">حارس السوق</div>
+                </div>
+                <div class="gc game-card" onclick="startChessGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">♟️</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">الشطرنج</div>
+                </div>
+                <div class="gc game-card" onclick="startSolitaireGame()">
+                    <div class="gt"><span class="tg local-badge">داخلية</span><div class="local-poster">🃏</div><div class="po"><div class="pc">▶</div></div></div>
+                    <div class="gn">سوليتير</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<footer class="footer">
+    <div>جميع الحقوق محفوظة © 2026 - ألعاب عزيز</div>
+</footer>
+
+<script>
+    const playerContainer = document.getElementById('playerContainer');
+    const activeGameTitle = document.getElementById('activeGameTitle');
+    const gameHint = document.getElementById('gameHint');
+    const snakeCanvas = document.getElementById('snakeCanvas');
+    const ticTacToeGrid = document.getElementById('ticTacToeGrid');
+    const flappyCanvas = document.getElementById('flappyCanvas');
+    const breakoutCanvas = document.getElementById('breakoutCanvas');
+    const dodgeCanvas = document.getElementById('dodgeCanvas');
+    const beatCanvas = document.getElementById('beatCanvas');
+    const chessBoard = document.getElementById('chessBoard');
+    const solitaireArea = document.getElementById('solitaireArea');
+    const embedFrame = document.getElementById('embedFrame');
+    const embedWrap = document.getElementById('embedWrap');
+    const embedFallback = document.getElementById('embedFallback');
+    const embedLoading = document.getElementById('embedLoading');
+    const embedOpenNew = document.getElementById('embedOpenNew');
+    const embedBar = document.getElementById('embedBar');
+    const fileWarning = document.getElementById('fileWarning');
+    const isLocalFile = (location.protocol === 'file:');
+    let embedTimer = null;
+    let embedBarTimer = null;
+    let embedLoaded = false;
+
+    if (isLocalFile && fileWarning) { fileWarning.style.display = 'block'; }
+
+    let snakeInterval, flappyInterval, breakoutInterval, dodgeInterval, beatInterval;
+    let canvas, ctx, snake, food, dx, dy, score;
+
+    function closeGame() {
+        playerContainer.style.display = 'none';
+        snakeCanvas.style.display = 'none';
+        ticTacToeGrid.style.display = 'none';
+        flappyCanvas.style.display = 'none';
+        breakoutCanvas.style.display = 'none';
+        dodgeCanvas.style.display = 'none';
+        beatCanvas.style.display = 'none';
+        chessBoard.style.display = 'none';
+        solitaireArea.style.display = 'none';
+        if (embedTimer) { clearTimeout(embedTimer); embedTimer = null; }
+        if (embedBarTimer) { clearTimeout(embedBarTimer); embedBarTimer = null; }
+        embedLoaded = false;
+        embedWrap.style.display = 'none';
+        embedBar.style.display = 'none';
+        embedFallback.style.display = 'none';
+        embedLoading.style.display = 'none';
+        embedFrame.style.display = 'none';
+        embedFrame.src = 'about:blank';
+        gameHint.innerText = '';
+        clearInterval(snakeInterval);
+        clearInterval(flappyInterval);
+        clearInterval(breakoutInterval);
+        clearInterval(dodgeInterval);
+        clearInterval(beatInterval);
+        window.removeEventListener('keydown', handleSnakeControls);
+        window.removeEventListener('keydown', handleBreakoutControls);
+        flappyCanvas.removeEventListener('click', flappyFlap);
+        window.removeEventListener('keydown', handleDodgeControls);
+        window.removeEventListener('mousemove', handleDodgeMouse);
+        window.removeEventListener('keydown', handleBeatKeydown);
+        window.removeEventListener('keyup', handleBeatKeyup);
+        window.removeEventListener('keydown', handleFlappyKeydown);
+    }
+
+    // ==================== لعبة الثعبان الاحترافية المصلحة ====================
+    function startSnakeGame() {
+        closeGame();
+        activeGameTitle.innerText = "لعبة الثعبان الكلاسيكية - تحرك بأسهم لوحة المفاتيح";
+        playerContainer.style.display = 'block';
+        snakeCanvas.style.display = 'block';
+        
+        canvas = snakeCanvas;
+        ctx = canvas.getContext('2d');
+        
+        snake = [{x: 200, y: 200}, {x: 190, y: 200}, {x: 180, y: 200}];
+        dx = 10; dy = 0; score = 0;
+        
+        genFood();
+        window.addEventListener('keydown', handleSnakeControls);
+        snakeInterval = setInterval(mainSnakeLoop, 100);
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function mainSnakeLoop() {
+        if (hasGameEnded()) { closeGame(); alert("للاسف خسرت! مجموع نقاطك: " + score); return; }
+        
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // رسم الأكل
+        ctx.fillStyle = '#E91E63';
+        ctx.fillRect(food.x, food.y, 10, 10);
+        
+        // تحريك الرأس
+        const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        snake.unshift(head);
+        
+        if (snake[0].x === food.x && snake[0].y === food.y) {
+            score += 10;
+            genFood();
+        } else {
+            snake.pop();
+        }
+        
+        // رسم الثعبان
+        ctx.fillStyle = '#4CAF50';
+        snake.forEach(part => ctx.fillRect(part.x, part.y, 10, 10));
+    }
+
+    function handleSnakeControls(e) {
+        if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -10; }
+        if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 10; }
+        if (e.key === 'ArrowLeft' && dx === 0) { dx = -10; dy = 0; }
+        if (e.key === 'ArrowRight' && dx === 0) { dx = 10; dy = 0; }
+    }
+
+    function genFood() {
+        food = {
+            x: Math.floor(Math.random() * (canvas.width / 10)) * 10,
+            y: Math.floor(Math.random() * (canvas.height / 10)) * 10
+        };
+        // تأكد ألا يظهر الأكل فوق جسم الثعبان
+        for (const part of snake) {
+            if (part.x === food.x && part.y === food.y) { genFood(); return; }
+        }
+    }
+
+    function hasGameEnded() {
+        // الاصطدام بالجدران
+        if (snake[0].x < 0 || snake[0].x >= canvas.width || snake[0].y < 0 || snake[0].y >= canvas.height) {
+            return true;
+        }
+        // الاصطدام بجسم الثعبان نفسه
+        for (let i = 4; i < snake.length; i++) {
+            if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
+        }
+        return false;
+    }
+
+    // ==================== لعبة إكس أو (XO) الكاملة ====================
+    let tttBoard, tttCurrentPlayer, tttActive;
+    const tttCells = () => document.querySelectorAll('.ttt-cell');
+    const TTT_WIN_COMBOS = [
+        [0,1,2],[3,4,5],[6,7,8], // صفوف
+        [0,3,6],[1,4,7],[2,5,8], // أعمدة
+        [0,4,8],[2,4,6]          // أقطار
+    ];
+
+    function startTicTacToe() {
+        closeGame();
+        activeGameTitle.innerText = "لعبة إكس أو - دور اللاعب: X";
+        playerContainer.style.display = 'block';
+        ticTacToeGrid.style.display = 'grid';
+
+        tttBoard = ['', '', '', '', '', '', '', '', ''];
+        tttCurrentPlayer = 'X';
+        tttActive = true;
+
+        tttCells().forEach(cell => {
+            cell.innerText = '';
+            cell.style.color = '#fff';
+        });
+
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function makeTTTMove(index) {
+        if (!tttActive || tttBoard[index] !== '') return;
+
+        tttBoard[index] = tttCurrentPlayer;
+        const cell = tttCells()[index];
+        cell.innerText = tttCurrentPlayer;
+        cell.style.color = tttCurrentPlayer === 'X' ? '#2196F3' : '#E91E63';
+
+        if (checkTTTWin()) {
+            activeGameTitle.innerText = "🎉 مبروك! اللاعب " + tttCurrentPlayer + " فاز!";
+            tttActive = false;
+            return;
+        }
+
+        if (!tttBoard.includes('')) {
+            activeGameTitle.innerText = "🤝 تعادل! حاول مرة أخرى";
+            tttActive = false;
+            return;
+        }
+
+        tttCurrentPlayer = tttCurrentPlayer === 'X' ? 'O' : 'X';
+        activeGameTitle.innerText = "لعبة إكس أو - دور اللاعب: " + tttCurrentPlayer;
+    }
+
+    function checkTTTWin() {
+        return TTT_WIN_COMBOS.some(combo => {
+            const [a, b, c] = combo;
+            return tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c];
+        });
+    }
+
+    // ==================== لعبة الطائر القافز Flappy Bird ====================
+    let fCtx, fBird, fPipes, fScore, fGravity, fGameOver;
+
+    function startFlappyGame() {
+        closeGame();
+        activeGameTitle.innerText = "الطائر القافز - اضغط لتطير";
+        gameHint.innerText = "اضغط على الشاشة أو مفتاح المسافة للطيران";
+        playerContainer.style.display = 'block';
+        flappyCanvas.style.display = 'block';
+
+        fCtx = flappyCanvas.getContext('2d');
+        fBird = { x: 60, y: 200, vy: 0, r: 12 };
+        fPipes = [];
+        fScore = 0;
+        fGravity = 0.5;
+        fGameOver = false;
+
+        spawnFlappyPipe();
+        flappyCanvas.addEventListener('click', flappyFlap);
+        window.addEventListener('keydown', handleFlappyKeydown);
+        flappyInterval = setInterval(flappyLoop, 20);
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function handleFlappyKeydown(e) {
+        if (e.code === 'Space') { e.preventDefault(); flappyFlap(); }
+    }
+
+    function flappyFlap() {
+        if (fGameOver) return;
+        fBird.vy = -8;
+    }
+
+    function spawnFlappyPipe() {
+        const gap = 130;
+        const topH = 40 + Math.random() * 180;
+        fPipes.push({ x: flappyCanvas.width, topH: topH, gap: gap, passed: false });
+    }
+
+    function flappyLoop() {
+        if (fGameOver) return;
+
+        fBird.vy += fGravity;
+        fBird.y += fBird.vy;
+
+        fPipes.forEach(p => p.x -= 3);
+        if (fPipes.length && fPipes[0].x < -60) fPipes.shift();
+        if (fPipes.length && fPipes[fPipes.length - 1].x < flappyCanvas.width - 180) spawnFlappyPipe();
+
+        fPipes.forEach(p => {
+            if (!p.passed && p.x + 30 < fBird.x) { p.passed = true; fScore++; }
+            const hitX = fBird.x + fBird.r > p.x && fBird.x - fBird.r < p.x + 30;
+            const hitY = fBird.y - fBird.r < p.topH || fBird.y + fBird.r > p.topH + p.gap;
+            if (hitX && hitY) fGameOver = true;
+        });
+
+        if (fBird.y + fBird.r > flappyCanvas.height || fBird.y - fBird.r < 0) fGameOver = true;
+
+        fCtx.fillStyle = '#4EC0CA';
+        fCtx.fillRect(0, 0, flappyCanvas.width, flappyCanvas.height);
+
+        fCtx.fillStyle = '#4CAF50';
+        fPipes.forEach(p => {
+            fCtx.fillRect(p.x, 0, 30, p.topH);
+            fCtx.fillRect(p.x, p.topH + p.gap, 30, flappyCanvas.height - p.topH - p.gap);
+        });
+
+        fCtx.fillStyle = '#FFC107';
+        fCtx.beginPath();
+        fCtx.arc(fBird.x, fBird.y, fBird.r, 0, Math.PI * 2);
+        fCtx.fill();
+
+        fCtx.fillStyle = '#fff';
+        fCtx.font = 'bold 22px Cairo, sans-serif';
+        fCtx.fillText('النقاط: ' + fScore, 10, 30);
+
+        if (fGameOver) {
+            clearInterval(flappyInterval);
+            fCtx.fillStyle = 'rgba(0,0,0,.6)';
+            fCtx.fillRect(0, 0, flappyCanvas.width, flappyCanvas.height);
+            fCtx.fillStyle = '#fff';
+            fCtx.font = 'bold 20px Cairo, sans-serif';
+            fCtx.textAlign = 'center';
+            fCtx.fillText('انتهت اللعبة! النقاط: ' + fScore, flappyCanvas.width / 2, flappyCanvas.height / 2);
+            fCtx.textAlign = 'left';
+        }
+    }
+
+    // ==================== لعبة كسر الطوب Breakout ====================
+    let bCtx, bPaddle, bBall, bBricks, bScore, bLeft, bRight, bGameOver;
+
+    function startBreakoutGame() {
+        closeGame();
+        activeGameTitle.innerText = "كسر الطوب - حرّك المضرب بالأسهم";
+        gameHint.innerText = "استخدم أسهم اليسار واليمين لتحريك المضرب";
+        playerContainer.style.display = 'block';
+        breakoutCanvas.style.display = 'block';
+
+        bCtx = breakoutCanvas.getContext('2d');
+        bPaddle = { x: 160, y: 380, w: 80, h: 10, speed: 6 };
+        bBall = { x: 200, y: 300, vx: 3, vy: -3, r: 7 };
+        bScore = 0;
+        bLeft = false; bRight = false; bGameOver = false;
+
+        bBricks = [];
+        const rows = 4, cols = 8;
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                bBricks.push({ x: c * 48 + 8, y: r * 22 + 30, w: 42, h: 16, alive: true });
+            }
+        }
+
+        window.addEventListener('keydown', handleBreakoutControls);
+        window.addEventListener('keyup', handleBreakoutControls);
+        breakoutInterval = setInterval(breakoutLoop, 16);
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function handleBreakoutControls(e) {
+        const down = e.type === 'keydown';
+        if (e.key === 'ArrowLeft') bLeft = down;
+        if (e.key === 'ArrowRight') bRight = down;
+    }
+
+    function breakoutLoop() {
+        if (bGameOver) return;
+
+        if (bLeft) bPaddle.x -= bPaddle.speed;
+        if (bRight) bPaddle.x += bPaddle.speed;
+        bPaddle.x = Math.max(0, Math.min(breakoutCanvas.width - bPaddle.w, bPaddle.x));
+
+        bBall.x += bBall.vx;
+        bBall.y += bBall.vy;
+
+        if (bBall.x - bBall.r < 0 || bBall.x + bBall.r > breakoutCanvas.width) bBall.vx *= -1;
+        if (bBall.y - bBall.r < 0) bBall.vy *= -1;
+
+        if (bBall.y + bBall.r > bPaddle.y && bBall.x > bPaddle.x && bBall.x < bPaddle.x + bPaddle.w && bBall.vy > 0) {
+            bBall.vy *= -1;
+            const hitPos = (bBall.x - bPaddle.x) / bPaddle.w - 0.5;
+            bBall.vx = hitPos * 6;
+        }
+
+        if (bBall.y - bBall.r > breakoutCanvas.height) {
+            bGameOver = true;
+        }
+
+        bBricks.forEach(brick => {
+            if (!brick.alive) return;
+            if (bBall.x > brick.x && bBall.x < brick.x + brick.w && bBall.y - bBall.r < brick.y + brick.h && bBall.y + bBall.r > brick.y) {
+                brick.alive = false;
+                bBall.vy *= -1;
+                bScore += 10;
+            }
+        });
+
+        bCtx.fillStyle = '#111';
+        bCtx.fillRect(0, 0, breakoutCanvas.width, breakoutCanvas.height);
+
+        bCtx.fillStyle = '#2196F3';
+        bCtx.fillRect(bPaddle.x, bPaddle.y, bPaddle.w, bPaddle.h);
+
+        bCtx.fillStyle = '#E91E63';
+        bCtx.beginPath();
+        bCtx.arc(bBall.x, bBall.y, bBall.r, 0, Math.PI * 2);
+        bCtx.fill();
+
+        const colors = ['#FF9800', '#4CAF50', '#2196F3', '#E91E63'];
+        bBricks.forEach((brick, i) => {
+            if (!brick.alive) return;
+            bCtx.fillStyle = colors[Math.floor(i / 8) % colors.length];
+            bCtx.fillRect(brick.x, brick.y, brick.w, brick.h);
+        });
+
+        bCtx.fillStyle = '#fff';
+        bCtx.font = 'bold 16px Cairo, sans-serif';
+        bCtx.fillText('النقاط: ' + bScore, 10, breakoutCanvas.height - 8);
+
+        if (bBricks.every(b => !b.alive)) {
+            bGameOver = true;
+            bCtx.fillStyle = 'rgba(0,0,0,.6)';
+            bCtx.fillRect(0, 0, breakoutCanvas.width, breakoutCanvas.height);
+            bCtx.fillStyle = '#fff';
+            bCtx.font = 'bold 20px Cairo, sans-serif';
+            bCtx.textAlign = 'center';
+            bCtx.fillText('🎉 فزت! كسرت كل الطوب', breakoutCanvas.width / 2, breakoutCanvas.height / 2);
+            bCtx.textAlign = 'left';
+        }
+
+        if (bGameOver) {
+            clearInterval(breakoutInterval);
+            if (bBricks.some(b => b.alive)) {
+                bCtx.fillStyle = 'rgba(0,0,0,.6)';
+                bCtx.fillRect(0, 0, breakoutCanvas.width, breakoutCanvas.height);
+                bCtx.fillStyle = '#fff';
+                bCtx.font = 'bold 20px Cairo, sans-serif';
+                bCtx.textAlign = 'center';
+                bCtx.fillText('انتهت اللعبة! النقاط: ' + bScore, breakoutCanvas.width / 2, breakoutCanvas.height / 2);
+                bCtx.textAlign = 'left';
+            }
+        }
+    }
+
+    // ==================== لعبة تفادي العوائق Dodge ====================
+    let dCtx, dPlayer, dObstacles, dScore, dSpeed, dGameOver, dLeft, dRight, dFrame;
+
+    function startDodgeGame() {
+        closeGame();
+        activeGameTitle.innerText = "تفادي العوائق - تحرك يميناً ويساراً";
+        gameHint.innerText = "استخدم أسهم اليسار واليمين أو حرّك الماوس لتفادي العوائق";
+        playerContainer.style.display = 'block';
+        dodgeCanvas.style.display = 'block';
+
+        dCtx = dodgeCanvas.getContext('2d');
+        dPlayer = { x: dodgeCanvas.width / 2 - 15, y: dodgeCanvas.height - 50, w: 30, h: 30, speed: 6 };
+        dObstacles = [];
+        dScore = 0;
+        dSpeed = 3;
+        dGameOver = false;
+        dLeft = false; dRight = false; dFrame = 0;
+
+        window.addEventListener('keydown', handleDodgeControls);
+        window.addEventListener('keyup', handleDodgeControls);
+        dodgeCanvas.addEventListener('mousemove', handleDodgeMouse);
+        dodgeInterval = setInterval(dodgeLoop, 20);
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function handleDodgeControls(e) {
+        const down = e.type === 'keydown';
+        if (e.key === 'ArrowLeft') dLeft = down;
+        if (e.key === 'ArrowRight') dRight = down;
+    }
+
+    function handleDodgeMouse(e) {
+        const rect = dodgeCanvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        dPlayer.x = Math.max(0, Math.min(dodgeCanvas.width - dPlayer.w, mouseX - dPlayer.w / 2));
+    }
+
+    function dodgeLoop() {
+        if (dGameOver) return;
+        dFrame++;
+
+        if (dLeft) dPlayer.x -= dPlayer.speed;
+        if (dRight) dPlayer.x += dPlayer.speed;
+        dPlayer.x = Math.max(0, Math.min(dodgeCanvas.width - dPlayer.w, dPlayer.x));
+
+        if (dFrame % 30 === 0) {
+            const w = 20 + Math.random() * 40;
+            dObstacles.push({ x: Math.random() * (dodgeCanvas.width - w), y: -20, w: w, h: 20 });
+        }
+
+        dObstacles.forEach(o => o.y += dSpeed);
+        dObstacles = dObstacles.filter(o => o.y < dodgeCanvas.height);
+
+        dObstacles.forEach(o => {
+            if (dPlayer.x < o.x + o.w && dPlayer.x + dPlayer.w > o.x && dPlayer.y < o.y + o.h && dPlayer.y + dPlayer.h > o.y) {
+                dGameOver = true;
+            }
+        });
+
+        dScore = Math.floor(dFrame / 10);
+        if (dFrame % 300 === 0) dSpeed += 0.5;
+
+        dCtx.fillStyle = '#1a1a2e';
+        dCtx.fillRect(0, 0, dodgeCanvas.width, dodgeCanvas.height);
+
+        dCtx.fillStyle = '#FF5252';
+        dObstacles.forEach(o => dCtx.fillRect(o.x, o.y, o.w, o.h));
+
+        dCtx.fillStyle = '#4CAF50';
+        dCtx.fillRect(dPlayer.x, dPlayer.y, dPlayer.w, dPlayer.h);
+
+        dCtx.fillStyle = '#fff';
+        dCtx.font = 'bold 16px Cairo, sans-serif';
+        dCtx.fillText('النقاط: ' + dScore, 10, 24);
+
+        if (dGameOver) {
+            clearInterval(dodgeInterval);
+            dCtx.fillStyle = 'rgba(0,0,0,.6)';
+            dCtx.fillRect(0, 0, dodgeCanvas.width, dodgeCanvas.height);
+            dCtx.fillStyle = '#fff';
+            dCtx.font = 'bold 20px Cairo, sans-serif';
+            dCtx.textAlign = 'center';
+            dCtx.fillText('انتهت اللعبة! النقاط: ' + dScore, dodgeCanvas.width / 2, dodgeCanvas.height / 2);
+            dCtx.textAlign = 'left';
+        }
+    }
+
+    // ==================== لعبة حارس السوق - قتال شوارع أصلي ====================
+    let gCtx, gHero, gEnemies, gWave, gMaxWave, gKeys, gGameOver, gGameWon, gHitFlash;
+
+    function startBeatGame() {
+        closeGame();
+        activeGameTitle.innerText = "حارس السوق - الموجة 1 من 3";
+        gameHint.innerText = "الأسهم للتحرك | A للكمة سريعة | S للكمة قوية";
+        playerContainer.style.display = 'block';
+        beatCanvas.style.display = 'block';
+
+        gCtx = beatCanvas.getContext('2d');
+        gHero = { x: 60, y: 160, w: 34, h: 50, health: 100, maxHealth: 100, speed: 3.5, facing: 1, attackCd: 0, attackType: null, attackTimer: 0, hitEnemies: [] };
+        gEnemies = [];
+        gWave = 1;
+        gMaxWave = 3;
+        gKeys = {};
+        gGameOver = false;
+        gGameWon = false;
+        gHitFlash = 0;
+
+        spawnBeatWave();
+
+        window.addEventListener('keydown', handleBeatKeydown);
+        window.addEventListener('keyup', handleBeatKeyup);
+        beatInterval = setInterval(beatLoop, 20);
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function spawnBeatWave() {
+        gEnemies = [];
+        const count = 2 + gWave;
+        for (let i = 0; i < count; i++) {
+            gEnemies.push({
+                x: 350 + Math.random() * 120 + i * 20,
+                y: 100 + Math.random() * 160,
+                w: 32, h: 48,
+                health: 30 + gWave * 10,
+                maxHealth: 30 + gWave * 10,
+                speed: 1 + Math.random() * 0.8 + gWave * 0.15,
+                hitCd: 0
+            });
+        }
+    }
+
+    function handleBeatKeydown(e) {
+        gKeys[e.key] = true;
+        if ((e.key === 'a' || e.key === 'A') && gHero && gHero.attackCd <= 0) {
+            gHero.attackType = 'light';
+            gHero.attackTimer = 10;
+            gHero.attackCd = 18;
+            gHero.hitEnemies = [];
+        }
+        if ((e.key === 's' || e.key === 'S') && gHero && gHero.attackCd <= 0) {
+            gHero.attackType = 'heavy';
+            gHero.attackTimer = 16;
+            gHero.attackCd = 32;
+            gHero.hitEnemies = [];
+        }
+    }
+
+    function handleBeatKeyup(e) {
+        gKeys[e.key] = false;
+    }
+
+    function beatLoop() {
+        if (gGameOver || gGameWon) return;
+
+        // حركة البطل
+        if (gKeys['ArrowLeft']) { gHero.x -= gHero.speed; gHero.facing = -1; }
+        if (gKeys['ArrowRight']) { gHero.x += gHero.speed; gHero.facing = 1; }
+        if (gKeys['ArrowUp']) gHero.y -= gHero.speed;
+        if (gKeys['ArrowDown']) gHero.y += gHero.speed;
+        gHero.x = Math.max(10, Math.min(beatCanvas.width - gHero.w - 10, gHero.x));
+        gHero.y = Math.max(60, Math.min(beatCanvas.height - gHero.h - 20, gHero.y));
+
+        if (gHero.attackCd > 0) gHero.attackCd--;
+        if (gHero.attackTimer > 0) {
+            gHero.attackTimer--;
+            const reach = gHero.attackType === 'heavy' ? 46 : 34;
+            const dmg = gHero.attackType === 'heavy' ? 22 : 10;
+            const ax = gHero.facing === 1 ? gHero.x + gHero.w : gHero.x - reach;
+            gEnemies.forEach(en => {
+                if (gHero.hitEnemies.includes(en)) return;
+                if (ax < en.x + en.w && ax + reach > en.x && gHero.y < en.y + en.h && gHero.y + gHero.h > en.y) {
+                    en.health -= dmg;
+                    en.x += gHero.facing * (gHero.attackType === 'heavy' ? 18 : 8);
+                    gHero.hitEnemies.push(en);
+                    gHitFlash = 6;
+                }
+            });
+        } else {
+            gHero.attackType = null;
+        }
+
+        // حركة الأعداء
+        gEnemies.forEach(en => {
+            if (en.hitCd > 0) en.hitCd--;
+            const dx = gHero.x - en.x, dy = gHero.y - en.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist > 40) {
+                en.x += (dx / dist) * en.speed;
+                en.y += (dy / dist) * en.speed;
+            } else if (en.hitCd <= 0) {
+                gHero.health -= 6;
+                en.hitCd = 45;
+            }
+        });
+
+        gEnemies = gEnemies.filter(en => en.health > 0);
+
+        if (gHero.health <= 0) {
+            gGameOver = true;
+        } else if (gEnemies.length === 0) {
+            if (gWave >= gMaxWave) {
+                gGameWon = true;
+            } else {
+                gWave++;
+                activeGameTitle.innerText = "حارس السوق - الموجة " + gWave + " من " + gMaxWave;
+                spawnBeatWave();
+            }
+        }
+
+        // الرسم
+        gCtx.fillStyle = '#3b2a1a';
+        gCtx.fillRect(0, 0, beatCanvas.width, beatCanvas.height);
+        gCtx.fillStyle = '#4a3520';
+        gCtx.fillRect(0, beatCanvas.height - 20, beatCanvas.width, 20);
+
+        // البطل
+        gCtx.fillStyle = gHero.attackTimer > 0 ? '#FFC107' : '#2196F3';
+        gCtx.fillRect(gHero.x, gHero.y, gHero.w, gHero.h);
+        gCtx.fillStyle = '#fff';
+        gCtx.fillRect(gHero.x + (gHero.facing === 1 ? gHero.w - 6 : 0), gHero.y + 8, 6, 6);
+
+        // شريط صحة البطل
+        gCtx.fillStyle = '#555';
+        gCtx.fillRect(gHero.x - 5, gHero.y - 10, gHero.w + 10, 5);
+        gCtx.fillStyle = '#4CAF50';
+        gCtx.fillRect(gHero.x - 5, gHero.y - 10, (gHero.w + 10) * (gHero.health / gHero.maxHealth), 5);
+
+        // الأعداء
+        gEnemies.forEach(en => {
+            gCtx.fillStyle = '#8B0000';
+            gCtx.fillRect(en.x, en.y, en.w, en.h);
+            gCtx.fillStyle = '#555';
+            gCtx.fillRect(en.x - 3, en.y - 8, en.w + 6, 4);
+            gCtx.fillStyle = '#E91E63';
+            gCtx.fillRect(en.x - 3, en.y - 8, (en.w + 6) * (en.health / en.maxHealth), 4);
+        });
+
+        if (gHitFlash > 0) gHitFlash--;
+
+        gCtx.fillStyle = '#fff';
+        gCtx.font = 'bold 15px Cairo, sans-serif';
+        gCtx.fillText('❤️ ' + Math.max(0, Math.round(gHero.health)) + ' / ' + gHero.maxHealth, 10, 20);
+        gCtx.fillText('الموجة: ' + gWave + '/' + gMaxWave + ' — الأعداء المتبقون: ' + gEnemies.length, 10, 40);
+
+        if (gGameOver || gGameWon) {
+            clearInterval(beatInterval);
+            gCtx.fillStyle = 'rgba(0,0,0,.65)';
+            gCtx.fillRect(0, 0, beatCanvas.width, beatCanvas.height);
+            gCtx.fillStyle = '#fff';
+            gCtx.font = 'bold 22px Cairo, sans-serif';
+            gCtx.textAlign = 'center';
+            gCtx.fillText(gGameWon ? '🎉 حميت السوق! فزت باللعبة' : '💥 انهزمت! حاول مرة أخرى', beatCanvas.width / 2, beatCanvas.height / 2);
+            gCtx.textAlign = 'left';
+        }
+    }
+
+    // ==================== الشطرنج (لاعب ضد لاعب) ====================
+    const CHESS_ICONS = { wK:'♔',wQ:'♕',wR:'♖',wB:'♗',wN:'♘',wP:'♙', bK:'♚',bQ:'♛',bR:'♜',bB:'♝',bN:'♞',bP:'♟' };
+    let chBoard, chTurn, chSelected, chLegalMoves, chGameOver;
+
+    function startChessGame() {
+        closeGame();
+        activeGameTitle.innerText = "الشطرنج - دور اللاعب: الأبيض";
+        gameHint.innerText = "لاعب ضد لاعب على نفس الجهاز - اضغط على قطعة ثم على المربع المستهدف";
+        playerContainer.style.display = 'block';
+        chessBoard.style.display = 'grid';
+
+        chBoard = [
+            ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+            ['bP','bP','bP','bP','bP','bP','bP','bP'],
+            ['','','','','','','',''],
+            ['','','','','','','',''],
+            ['','','','','','','',''],
+            ['','','','','','','',''],
+            ['wP','wP','wP','wP','wP','wP','wP','wP'],
+            ['wR','wN','wB','wQ','wK','wB','wN','wR']
+        ];
+        chTurn = 'w';
+        chSelected = null;
+        chLegalMoves = [];
+        chGameOver = false;
+
+        renderChessBoard();
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function renderChessBoard() {
+        chessBoard.innerHTML = '';
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                const sq = document.createElement('div');
+                sq.className = 'chess-sq ' + ((r + c) % 2 === 0 ? 'chess-light' : 'chess-dark');
+                const piece = chBoard[r][c];
+                if (piece) sq.innerText = CHESS_ICONS[piece];
+                if (chSelected && chSelected[0] === r && chSelected[1] === c) sq.classList.add('chess-sel');
+                if (chLegalMoves.some(m => m[0] === r && m[1] === c)) sq.classList.add('chess-move');
+                sq.onclick = () => chessSquareClick(r, c);
+                chessBoard.appendChild(sq);
+            }
+        }
+    }
+
+    function chessSquareClick(r, c) {
+        if (chGameOver) return;
+        const piece = chBoard[r][c];
+
+        if (chSelected) {
+            const isLegal = chLegalMoves.some(m => m[0] === r && m[1] === c);
+            if (isLegal) {
+                movePiece(chSelected, [r, c]);
+                chSelected = null;
+                chLegalMoves = [];
+                renderChessBoard();
+                return;
+            }
+            if (piece && piece[0] === chTurn) {
+                chSelected = [r, c];
+                chLegalMoves = getLegalMoves(r, c);
+                renderChessBoard();
+                return;
+            }
+            chSelected = null;
+            chLegalMoves = [];
+            renderChessBoard();
+            return;
+        }
+
+        if (piece && piece[0] === chTurn) {
+            chSelected = [r, c];
+            chLegalMoves = getLegalMoves(r, c);
+            renderChessBoard();
+        }
+    }
+
+    function movePiece(from, to) {
+        const piece = chBoard[from[0]][from[1]];
+        const captured = chBoard[to[0]][to[1]];
+        chBoard[to[0]][to[1]] = piece;
+        chBoard[from[0]][from[1]] = '';
+
+        // ترقية البيدق تلقائياً لملكة
+        if (piece[1] === 'P' && (to[0] === 0 || to[0] === 7)) {
+            chBoard[to[0]][to[1]] = piece[0] + 'Q';
+        }
+
+        if (captured && captured[1] === 'K') {
+            chGameOver = true;
+            activeGameTitle.innerText = "🎉 انتهت اللعبة! فاز " + (chTurn === 'w' ? 'الأبيض' : 'الأسود');
+            return;
+        }
+
+        chTurn = chTurn === 'w' ? 'b' : 'w';
+        activeGameTitle.innerText = "الشطرنج - دور اللاعب: " + (chTurn === 'w' ? 'الأبيض' : 'الأسود');
+    }
+
+    function getLegalMoves(r, c) {
+        const piece = chBoard[r][c];
+        if (!piece) return [];
+        const type = piece[1], color = piece[0];
+        const moves = [];
+        const inBounds = (rr, cc) => rr >= 0 && rr < 8 && cc >= 0 && cc < 8;
+        const canLand = (rr, cc) => inBounds(rr, cc) && (!chBoard[rr][cc] || chBoard[rr][cc][0] !== color);
+        const addSlide = (dr, dc) => {
+            let rr = r + dr, cc = c + dc;
+            while (inBounds(rr, cc)) {
+                if (!chBoard[rr][cc]) { moves.push([rr, cc]); }
+                else { if (chBoard[rr][cc][0] !== color) moves.push([rr, cc]); break; }
+                rr += dr; cc += dc;
+            }
+        };
+
+        if (type === 'P') {
+            const dir = color === 'w' ? -1 : 1;
+            const startRow = color === 'w' ? 6 : 1;
+            if (inBounds(r + dir, c) && !chBoard[r + dir][c]) {
+                moves.push([r + dir, c]);
+                if (r === startRow && !chBoard[r + 2 * dir][c]) moves.push([r + 2 * dir, c]);
+            }
+            [[dir, -1], [dir, 1]].forEach(([dr, dc]) => {
+                const rr = r + dr, cc = c + dc;
+                if (inBounds(rr, cc) && chBoard[rr][cc] && chBoard[rr][cc][0] !== color) moves.push([rr, cc]);
+            });
+        } else if (type === 'N') {
+            [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr, dc]) => {
+                if (canLand(r + dr, c + dc)) moves.push([r + dr, c + dc]);
+            });
+        } else if (type === 'B') {
+            [[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr, dc]) => addSlide(dr, dc));
+        } else if (type === 'R') {
+            [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr, dc]) => addSlide(dr, dc));
+        } else if (type === 'Q') {
+            [[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr, dc]) => addSlide(dr, dc));
+        } else if (type === 'K') {
+            [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr, dc]) => {
+                if (canLand(r + dr, c + dc)) moves.push([r + dr, c + dc]);
+            });
+        }
+        return moves;
+    }
+
+    // ==================== Solitaire (الصبر - Klondike) ====================
+    const SOL_SUITS = ['♠', '♥', '♦', '♣'];
+    const SOL_RED = ['♥', '♦'];
+    const SOL_RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+    let solStock, solWaste, solFoundations, solTableau, solSelected;
+
+    function startSolitaireGame() {
+        closeGame();
+        activeGameTitle.innerText = "لعبة الصبر Solitaire";
+        gameHint.innerText = "اسحب من الكومة، ورتب الأعمدة بالتناوب بين الأحمر والأسود تنازلياً، اجمع كل بدلة في الأعلى";
+        playerContainer.style.display = 'block';
+        solitaireArea.style.display = 'block';
+
+        let deck = [];
+        SOL_SUITS.forEach(s => SOL_RANKS.forEach((rk, i) => deck.push({ suit: s, rank: rk, value: i + 1, faceUp: false })));
+        for (let i = deck.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+
+        solTableau = [];
+        for (let col = 0; col < 7; col++) {
+            const pile = deck.splice(0, col + 1);
+            pile[pile.length - 1].faceUp = true;
+            solTableau.push(pile);
+        }
+        solStock = deck;
+        solWaste = [];
+        solFoundations = [[], [], [], []];
+        solSelected = null;
+
+        renderSolitaire();
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    function solCardEl(card, extraClass) {
+        const el = document.createElement('div');
+        el.className = 'sol-card ' + (SOL_RED.includes(card.suit) ? 'red' : 'black') + (extraClass ? ' ' + extraClass : '');
+        el.innerText = card.rank + card.suit;
+        return el;
+    }
+
+    function renderSolitaire() {
+        const stockEl = document.getElementById('solStock');
+        const wasteEl = document.getElementById('solWaste');
+        stockEl.innerHTML = ''; wasteEl.innerHTML = '';
+
+        if (solStock.length > 0) {
+            const back = document.createElement('div');
+            back.className = 'sol-card back';
+            back.onclick = drawFromStock;
+            stockEl.appendChild(back);
+        } else {
+            stockEl.onclick = resetStock;
+            stockEl.style.cursor = 'pointer';
+        }
+
+        if (solWaste.length > 0) {
+            const top = solWaste[solWaste.length - 1];
+            const el = solCardEl(top, solSelected && solSelected.type === 'waste' ? 'selected' : '');
+            el.onclick = () => selectCard('waste', 0);
+            wasteEl.appendChild(el);
+        }
+
+        for (let f = 0; f < 4; f++) {
+            const fEl = document.getElementById('solF' + f);
+            fEl.innerHTML = '';
+            if (solFoundations[f].length > 0) {
+                const top = solFoundations[f][solFoundations[f].length - 1];
+                fEl.appendChild(solCardEl(top));
+            } else {
+                fEl.innerText = '';
+                fEl.style.textAlign = 'center';
+                fEl.style.lineHeight = '84px';
+                fEl.style.color = '#666';
+            }
+            fEl.onclick = () => tryAutoFoundationFromSelected(f);
+        }
+
+        const tableauEl = document.getElementById('solTableau');
+        tableauEl.innerHTML = '';
+        solTableau.forEach((pile, colIdx) => {
+            const colEl = document.createElement('div');
+            colEl.className = 'sol-col';
+            colEl.style.minHeight = Math.max(200, 20 * pile.length + 84) + 'px';
+            if (pile.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'sol-pile';
+                empty.onclick = () => tryMoveToColumn(colIdx);
+                colEl.appendChild(empty);
+            }
+            pile.forEach((card, cardIdx) => {
+                const el = card.faceUp
+                    ? solCardEl(card, solSelected && solSelected.type === 'tableau' && solSelected.col === colIdx && solSelected.idx === cardIdx ? 'selected' : '')
+                    : (() => { const b = document.createElement('div'); b.className = 'sol-card back'; return b; })();
+                el.style.top = (cardIdx * 20) + 'px';
+                if (card.faceUp) {
+                    el.onclick = () => selectCard('tableau', cardIdx, colIdx);
+                }
+                colEl.appendChild(el);
+            });
+            tableauEl.appendChild(colEl);
+        });
+    }
+
+    function drawFromStock() {
+        if (solStock.length === 0) return;
+        const card = solStock.pop();
+        card.faceUp = true;
+        solWaste.push(card);
+        solSelected = null;
+        renderSolitaire();
+    }
+
+    function resetStock() {
+        if (solStock.length > 0) return;
+        solStock = solWaste.reverse().map(c => ({ ...c, faceUp: false }));
+        solWaste = [];
+        renderSolitaire();
+    }
+
+    function selectCard(type, idx, col) {
+        if (solSelected && solSelected.type === type && solSelected.col === col && solSelected.idx === idx) {
+            solSelected = null;
+            renderSolitaire();
+            return;
+        }
+        if (type === 'tableau') {
+            solSelected = { type, col, idx };
+        } else {
+            solSelected = { type };
+        }
+        renderSolitaire();
+    }
+
+    function getSelectedCard() {
+        if (!solSelected) return null;
+        if (solSelected.type === 'waste') return solWaste[solWaste.length - 1];
+        if (solSelected.type === 'tableau') return solTableau[solSelected.col][solSelected.idx];
+        return null;
+    }
+
+    function removeSelectedCard() {
+        if (solSelected.type === 'waste') {
+            return [solWaste.pop()];
+        }
+        if (solSelected.type === 'tableau') {
+            const pile = solTableau[solSelected.col];
+            const cards = pile.splice(solSelected.idx);
+            if (pile.length > 0) pile[pile.length - 1].faceUp = true;
+            return cards;
+        }
+        return [];
+    }
+
+    function tryMoveToColumn(colIdx) {
+        const card = getSelectedCard();
+        if (!card) return;
+        const targetPile = solTableau[colIdx];
+        const targetTop = targetPile[targetPile.length - 1];
+
+        const valid = targetPile.length === 0
+            ? card.rank === 'K'
+            : (targetTop.faceUp && targetTop.value === card.value + 1 && (SOL_RED.includes(targetTop.suit) !== SOL_RED.includes(card.suit)));
+
+        if (!valid) { solSelected = null; renderSolitaire(); return; }
+
+        const cards = removeSelectedCard();
+        solTableau[colIdx].push(...cards);
+        solSelected = null;
+        renderSolitaire();
+    }
+
+    function tryAutoFoundationFromSelected(fIdx) {
+        const card = getSelectedCard();
+        if (!card) return;
+        const pile = solFoundations[fIdx];
+        const valid = pile.length === 0 ? card.rank === 'A' : (pile[pile.length - 1].suit === card.suit && pile[pile.length - 1].value === card.value - 1);
+        if (!valid) { solSelected = null; renderSolitaire(); return; }
+
+        if (solSelected.type === 'tableau' && solTableau[solSelected.col].length - solSelected.idx > 1) {
+            solSelected = null; renderSolitaire(); return;
+        }
+
+        const cards = removeSelectedCard();
+        solFoundations[fIdx].push(...cards);
+        solSelected = null;
+        renderSolitaire();
+
+        if (solFoundations.every(f => f.length === 13)) {
+            setTimeout(() => alert('🎉 مبروك! ربحت لعبة الصبر!'), 100);
+        }
+    }    // ==================== لعبة مضمّنة من GameDistribution (مرخصة رسمياً) ====================
+    // ==================== نظام البحث في الألعاب ====================
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    const searchResultsCount = document.getElementById('searchResultsCount');
+
+    // خريطة التصنيفات العربية - الإنجليزية للبحث
+    const categoryAliases = {
+        'سباق': 'racing car drive driving',
+        'أكشن': 'action shooter fight battle combat',
+        'ألغاز': 'puzzle logic brain match',
+        'استراتيجية': 'strategy defense tower tactical',
+        'إدارة': 'management simulator tycoon idle',
+        'مغامرة': 'adventure platform runner escape',
+        'أركيد': 'arcade retro casual',
+        'رياضة': 'sports soccer football basketball golf',
+        'رعب': 'horror zombie survival',
+        'طبخ': 'cooking food kitchen',
+        'تجميل': 'beauty makeover',
+        'بطاقات': 'cards card clash',
+        'منصة': 'platformer jump',
+        'دفاع': 'defense tower td',
+        'زومبي': 'zombie undead dead',
+        'سيارات': 'car cars racing drive truck',
+        'دراجة': 'moto motorcycle bike',
+        'كرة': 'ball basketball soccer football',
+        'شطرنج': 'chess',
+        'صبر': 'solitaire klondike card',
+        'ثعبان': 'snake',
+        'تكساس': 'tic tac toe',
+        'فلابي': 'flappy bird',
+        'بلوك': 'block breakout brick',
+        'ملكية': 'mahjong',
+        'تلوين': 'color sort',
+        'دمج': 'merge fruit',
+        'جواهر': 'jewel match candy',
+        'تزلج': 'ski snow rider',
+        'هروب': 'escape prison run'
+    };
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        searchClear.classList.toggle('visible', query.length > 0);
+        filterGames(query);
+    });
+
+    searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        searchClear.classList.remove('visible');
+        filterGames('');
+        searchInput.focus();
+    });
+
+    function filterGames(query) {
+        const cards = document.querySelectorAll('.game-card');
+        let visibleCount = 0;
+
+        if (!query) {
+            cards.forEach(card => card.classList.remove('hidden'));
+            searchResultsCount.classList.remove('visible');
+            searchResultsCount.textContent = '';
+            return;
+        }
+
+        // توسيع البحث ليشمل مرادفات التصنيفات العربية
+        let expandedQuery = query;
+        for (const [ar, en] of Object.entries(categoryAliases)) {
+            if (query.includes(ar) || ar.includes(query)) {
+                expandedQuery += ' ' + en;
+            }
+            // بحث بالكلمات الإنجليزية أيضاً
+            if (en.split(' ').some(w => w.startsWith(query) || query.startsWith(w))) {
+                expandedQuery += ' ' + ar;
+            }
+        }
+
+        const searchTerms = expandedQuery.split(/\s+/);
+
+        cards.forEach(card => {
+            const gameName = (card.querySelector('.gn')?.textContent || '').toLowerCase();
+            const tagEl = card.querySelector('.tg');
+            const tagText = (tagEl?.textContent || '').toLowerCase();
+            const onclickAttr = card.getAttribute('onclick') || '';
+
+            // استخراج اسم اللعبة من onclick
+            const titleMatch = onclickAttr.match(/'([^']*)'\s*$/);
+            const gameTitle = titleMatch ? titleMatch[1].toLowerCase() : '';
+
+            const allText = (gameName + ' ' + tagText + ' ' + gameTitle).toLowerCase();
+
+            const matches = searchTerms.some(term => term && allText.includes(term));
+
+            if (matches) {
+                card.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        const totalCards = cards.length;
+        searchResultsCount.textContent = '🔍 تم العثور على ' + visibleCount + ' لعبة من أصل ' + totalCards + (visibleCount === 0 ? ' — جرب كلمة بحث أخرى' : '');
+        searchResultsCount.classList.add('visible');
+    }
+
+    // دعم البحث بالضغط على Enter
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            searchClear.classList.remove('visible');
+            filterGames('');
+            searchInput.blur();
+        }
+    });
+
+    // ==================== نهاية نظام البحث ====================
+
+    // صورة بديلة إن فشل تحميل مصغرة اللعبة
+    document.querySelectorAll('img.real-thumb').forEach(function (img) {
+        img.addEventListener('error', function () {
+            const holder = img.parentElement;
+            if (!holder || holder.querySelector('.local-poster')) { img.style.display = 'none'; return; }
+            const ph = document.createElement('div');
+            ph.className = 'local-poster';
+            ph.textContent = '🎮';
+            img.style.display = 'none';
+            holder.appendChild(ph);
+        });
+    });
+
+    function startEmbedGame(url, title) {
+        closeGame();
+        activeGameTitle.innerText = title;
+        playerContainer.style.display = 'block';
+
+        // الرابط المباشر يظل متاحاً دائماً إذا كان التضمين ممنوعاً من جهة اللعبة.
+        embedOpenNew.href = url;
+        var open2 = document.getElementById('embedOpenNew2');
+        if (open2) open2.href = url;
+
+        // لا نحاول التضمين عند فتح HTML مباشرة من الجهاز.
+        if (isLocalFile) {
+            gameHint.innerText = 'هذه لعبة خارجية. ارفع الموقع على GitHub Pages أولاً، ثم جرّبها من الموقع المنشور.';
+            embedFallback.style.display = 'block';
+            embedBar.style.display = 'block';
+            window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+            return;
+        }
+
+        gameHint.innerText = '⏳ جارٍ تشغيل اللعبة...';
+        embedLoading.style.display = 'block';
+        embedFallback.style.display = 'none';
+        embedBar.style.display = 'block';
+        embedWrap.style.display = 'block';
+        embedFrame.style.display = 'block';
+        embedLoaded = false;
+
+        // نبني الرابط باستخدام URL/URLSearchParams حتى لا يتكسر query string.
+        // هذا يطابق طريقة GameDistribution الرسمية: embed.gamedistribution.com
+        // مع url + width + height + language + gdpr + gd_sdk_referrer_url.
+        var embed = new URL('https://embed.gamedistribution.com/');
+        embed.searchParams.set('url', url);
+        embed.searchParams.set('width', '960');
+        embed.searchParams.set('height', '540');
+        embed.searchParams.set('language', 'en');
+        embed.searchParams.set('gdpr-tracking', '1');
+        embed.searchParams.set('gdpr-targeting', '1');
+        embed.searchParams.set('gdpr-third-party', '1');
+        embed.searchParams.set('gd_sdk_referrer_url', location.href.split('#')[0]);
+
+        embedFrame.src = embed.toString();
+
+        if (embedTimer) clearTimeout(embedTimer);
+        embedTimer = setTimeout(function () {
+            embedLoading.style.display = 'none';
+            embedBar.style.display = 'block';
+            embedFallback.style.display = 'block';
+            gameHint.innerText = 'التضمين لم يبدأ. اضغط «فتح اللعبة مباشرة»؛ هذا يفتح رابط GameDistribution الأصلي وليس رابط embed.';
+        }, 8000);
+
+        window.scrollTo({ top: playerContainer.offsetTop, behavior: 'smooth' });
+    }
+
+    embedFrame.addEventListener('load', function () {
+        if (!embedFrame.src || embedFrame.src === 'about:blank') return;
+        embedLoaded = true;
+        if (embedTimer) { clearTimeout(embedTimer); embedTimer = null; }
+        embedLoading.style.display = 'none';
+        embedBar.style.display = 'block';
+        gameHint.innerText = 'تم تحميل مشغّل اللعبة. إذا بقيت الشاشة سوداء، استخدم «فتح اللعبة مباشرة». يمكن لبعض الألعاب منع العرض داخل iframe.';
+    });
+
+    embedFrame.addEventListener('error', function () {
+        if (embedTimer) { clearTimeout(embedTimer); embedTimer = null; }
+        embedLoading.style.display = 'none';
+        embedWrap.style.display = 'none';
+        embedBar.style.display = 'block';
+        embedFallback.style.display = 'block';
+        gameHint.innerText = 'تعذر تضمين اللعبة. استخدم «فتح اللعبة مباشرة». انقر الرابط الأصلي للعبة فقط.';
+    });
+</script>
+
+</body>
+</html>
